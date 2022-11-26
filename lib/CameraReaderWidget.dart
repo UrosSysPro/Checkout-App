@@ -1,19 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
-class CameraReaderWidget extends StatelessWidget {
+class CameraReaderWidget extends StatefulWidget {
   const CameraReaderWidget({ Key? key }) : super(key: key);
+
+  @override
+  State<CameraReaderWidget> createState() => _CameraReaderWidgetState();
+}
+
+class _CameraReaderWidgetState extends State<CameraReaderWidget> {
+
+  bool enableTorch=false;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image(
-          image: AssetImage("assets/stack-of-receipts.webp"),
+        MobileScanner(
           fit: BoxFit.cover,
+          controller: MobileScannerController(
+            torchEnabled: enableTorch
+          ),
+          onDetect: (barCode,args){
+              if(barCode.rawValue==null){
+                showDialog(context: context, builder: (context){
+                  return AlertDialog(
+                    title: Text("Ne Radi:("),
+                    actions: [
+                      ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("jbg"))
+                    ],
+                  );
+                });
+              }else{
+                showDialog(context: context, builder: (context){
+                  return AlertDialog(
+                    title: Text("Radi:)"),
+                    content: SingleChildScrollView(child:Text(barCode.rawValue!)),
+                    actions: [
+                      ElevatedButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, child: Text("jej"))
+                    ],
+                  );
+                });
+            }
+          },
         ),
         Center(
-
           child: SizedBox(
             width: 300,
             height: 300,
@@ -42,7 +76,9 @@ class CameraReaderWidget extends StatelessWidget {
                 color: Colors.orange[900],
                 icon:Icon(Icons.bolt_outlined),
                 onPressed: (){
-                  
+                  setState(() {
+                    enableTorch=!enableTorch;
+                  });
                 },
               ),
             ),
