@@ -23,27 +23,17 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
             torchEnabled: enableTorch
           ),
           onDetect: (barCode,args){
-              if(barCode.rawValue==null){
-                showDialog(context: context, builder: (context){
-                  return AlertDialog(
-                    title: Text("Ne Radi:("),
-                    actions: [
-                      ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("jbg"))
-                    ],
-                  );
-                });
-              }else{
-                showDialog(context: context, builder: (context){
-                  return AlertDialog(
-                    title: Text("Radi:)"),
-                    content: SingleChildScrollView(child:Text(barCode.rawValue!)),
-                    actions: [
-                      ElevatedButton(onPressed: (){
-                        Navigator.pop(context);
-                      }, child: Text("jej"))
-                    ],
-                  );
-                });
+            if(barCode.rawValue==null){
+              showDialog(context: context, builder: (context){
+                return AlertDialog(
+                  title: Text("Ne Radi:("),
+                  actions: [
+                    ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("jbg"))
+                  ],
+                );
+              });
+            }else{
+                
             }
           },
         ),

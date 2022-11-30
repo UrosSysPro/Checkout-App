@@ -27,6 +27,14 @@ class _MainPageState extends State<MainPage> {
         leading:Center(
           child: const FlutterLogo(size:35)
         ),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: <Color>[Colors.white, Colors.green]),
+          ),
+        ),
       ),
       body: Builder(builder: (context){
         Widget child=Container(color: Colors.red,);
@@ -37,21 +45,21 @@ class _MainPageState extends State<MainPage> {
         return child;
       }),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 50,
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
+        iconSize: 30,
+        // showUnselectedLabels: false,
+        // showSelectedLabels: false,
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(            
-            label: "A",
+            label: "Overview",
             icon: Icon(Icons.home_repair_service)
           ),
           BottomNavigationBarItem(
-            label: "A",
+            label: "Scanner",
             icon: Icon(Icons.receipt_long_rounded)
           ),
           BottomNavigationBarItem(
-            label: "A",
+            label: "Cupons",
             icon: Icon(Icons.receipt)
           ),
         ],

@@ -13,7 +13,7 @@ class CollectionOverViewWidget extends StatefulWidget {
 
 class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   
-  late final ScrollController scrollController;
+  late final PageController scrollController;
   double scrollOffset=0;
   final double receiptWidth=170;
 
@@ -21,9 +21,8 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    scrollController=ScrollController();
+    scrollController=PageController(viewportFraction: 0.7);
     scrollController.addListener(_onScroll);
-
   }
   @override
   void dispose() {
@@ -36,6 +35,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     // print(scrollController.offset);
     setState(() {
       scrollOffset=scrollController.offset;
+      // print(scrollController.offset);
     });
   }
   
@@ -66,28 +66,38 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       Colors.purple
     ];
     double screenWidth=MediaQuery.of(context).size.width;
-    widgets.add(SizedBox(width: (screenWidth-receiptWidth)/2.0,));
+    // widgets.add(SizedBox(width: (screenWidth-receiptWidth)/2.0,));
     for(int i=0;i<colors.length;i++){
       double scale=i*receiptWidth-scrollOffset;
       scale=scale>0?scale:-scale;
-      double translate=-scale/10;
-      scale/=1000;
+      double translate=10-scale/10;
+      translate=20;//obrisati
+      scale/=800;
       scale=1.0-scale;
       scale=max(0, scale*0.9);
-      widgets.add(ReceiptListItem(colors[i],receiptWidth,scale,translate));
+      scale=0.8;//obrisati
+      widgets.add(ReceiptListItem(colors[i],receiptWidth,scale,translate,scrollController,i));
     }
-    widgets.add(SizedBox(width: (screenWidth-receiptWidth)/2.0,));
-    return ListView(
-      clipBehavior: Clip.none,
-      controller: scrollController,
+    // widgets.add(SizedBox(width: (screenWidth-receiptWidth)/2.0,));
+    // return ListView(
+    //   clipBehavior: Clip.none,
+    //   controller: scrollController,
+    //   scrollDirection: Axis.horizontal,
+    //   children: widgets,
+    //   physics: PageScrollPhysics(),
+    // );
+    return PageView.builder(
       scrollDirection: Axis.horizontal,
-      children: widgets,
-    );
+      itemCount: widgets.length,
+      controller: PageController(viewportFraction: 0.7),
+      itemBuilder: (context,index){
+        return widgets[index];
+    });
   } 
 
   Widget info(){
     FontWeight weight=FontWeight.bold;
-    double fontSize=30;
+    double fontSize=25;
     var decorationDark=TextStyle(
       fontSize: fontSize,
       color: Colors.black,
@@ -130,18 +140,24 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       child: Container(
         clipBehavior: Clip.antiAlias,
         child: Padding(
-          padding: const EdgeInsets.all(1),
-          child: TextField(
-            style: TextStyle(fontSize: 15,height: .7),
-            textAlign: TextAlign.center,
-            // textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              hintText: "🔍 Search",
+          padding: const EdgeInsets.only(bottom: 1),
+          child: SizedBox(
+            height: 40,
+            child: TextField(
+              style: TextStyle(
+                  fontSize: 16,
+                  height: .5,
+                ),
+                textAlign: TextAlign.center,
+                // textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                  hintText: "🔍 Search",
+              ),
             ),
           ),
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
           color: Colors.black12
         ),
       ),
@@ -155,37 +171,44 @@ class ReceiptListItem extends StatelessWidget {
   final double scale;
   final double width;
   final double translate;
-  const ReceiptListItem(this.color,this.width,this.scale,this.translate,{ Key? key }) : super(key: key);
+  final PageController controller;
+  final int id;
+  const ReceiptListItem(this.color,this.width,this.scale,this.translate,this.controller,this.id,{ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(0,translate),
-      child: Transform.scale(
-        scale: scale,
-        child: SizedBox(
-          width:width,
-          child: Container(
-            clipBehavior: Clip.none,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Transform.translate(
-                offset: Offset(0,25),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff515151)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlutterLogo(size: 50),
-                  ),
-                )
+    return GestureDetector(
+      onTap: (){
+        // controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+      },
+      child: Transform.translate(
+        offset: Offset(0,translate),
+        child: Transform.scale(
+          scale: scale,
+          child: SizedBox(
+            width:width,
+            child: Container(
+              clipBehavior: Clip.none,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Transform.translate(
+                  offset: Offset(0,-25),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xff515151)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlutterLogo(size: 50),
+                    ),
+                  )
+                ),
               ),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: color,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: color,
+              ),
             ),
           ),
         ),

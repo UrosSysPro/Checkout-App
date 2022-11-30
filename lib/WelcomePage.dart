@@ -1,8 +1,45 @@
 import 'package:check_out_app/MainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/scheduler/ticker.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+
+
   const WelcomePage({ Key? key }) : super(key: key);
+
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller=new AnimationController(vsync: this,duration: Duration(milliseconds: 300));
+    controller.addStatusListener((status) {
+      if(status==AnimationStatus.completed){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context){
+              return MainPage();
+            }
+          )
+        );
+      }
+    });
+    controller.forward();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
