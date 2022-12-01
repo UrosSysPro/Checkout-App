@@ -49,6 +49,8 @@ class _MainPageState extends State<MainPage> {
         // showUnselectedLabels: false,
         // showSelectedLabels: false,
         currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green,
+        // fixedColor: Colors.green,
         items: [
           BottomNavigationBarItem(            
             label: "Overview",

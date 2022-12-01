@@ -15,13 +15,13 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   
   late final PageController scrollController;
   double scrollOffset=0;
-  final double receiptWidth=170;
-
+  double pageViewFraction=0.5;
+ 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    scrollController=PageController(viewportFraction: 0.7);
+    scrollController=PageController(viewportFraction: pageViewFraction);
     scrollController.addListener(_onScroll);
   }
   @override
@@ -65,31 +65,22 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       Colors.lime,
       Colors.purple
     ];
-    double screenWidth=MediaQuery.of(context).size.width;
-    // widgets.add(SizedBox(width: (screenWidth-receiptWidth)/2.0,));
+    double screenWidth=MediaQuery.of(context).size.width*pageViewFraction;
     for(int i=0;i<colors.length;i++){
-      double scale=i*receiptWidth-scrollOffset;
+      double scale=i*screenWidth-scrollOffset;
       scale=scale>0?scale:-scale;
       double translate=10-scale/10;
-      translate=20;//obrisati
+      // translate=20;//obrisati
       scale/=800;
       scale=1.0-scale;
       scale=max(0, scale*0.9);
-      scale=0.8;//obrisati
-      widgets.add(ReceiptListItem(colors[i],receiptWidth,scale,translate,scrollController,i));
+      // scale=0.8;//obrisati
+      widgets.add(ReceiptListItem(colors[i],screenWidth,scale,translate,scrollController,i));
     }
-    // widgets.add(SizedBox(width: (screenWidth-receiptWidth)/2.0,));
-    // return ListView(
-    //   clipBehavior: Clip.none,
-    //   controller: scrollController,
-    //   scrollDirection: Axis.horizontal,
-    //   children: widgets,
-    //   physics: PageScrollPhysics(),
-    // );
     return PageView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: widgets.length,
-      controller: PageController(viewportFraction: 0.7),
+      controller: scrollController,
       itemBuilder: (context,index){
         return widgets[index];
     });
@@ -146,10 +137,8 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
             child: TextField(
               style: TextStyle(
                   fontSize: 16,
-                  height: .5,
                 ),
                 textAlign: TextAlign.center,
-                // textAlignVertical: TextAlignVertical.bottom,
                 decoration: InputDecoration(
                   hintText: "🔍 Search",
               ),
@@ -179,7 +168,7 @@ class ReceiptListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+        controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
       },
       child: Transform.translate(
         offset: Offset(0,translate),
