@@ -1,7 +1,6 @@
+import 'package:check_out_app/receipt/ReceiptModel.dart';
+import 'package:check_out_app/receipt/ReceiptView.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:math';
 
 class CollectionOverViewWidget extends StatefulWidget {
@@ -66,7 +65,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       Colors.purple
     ];
     double screenWidth=MediaQuery.of(context).size.width*pageViewFraction;
-    for(int i=0;i<colors.length;i++){
+    for(int i=0;i<receipts.length;i++){
       double scale=i*screenWidth-scrollOffset;
       scale=scale>0?scale:-scale;
       double translate=10-scale/10;
@@ -75,12 +74,15 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       scale=1.0-scale;
       scale=max(0, scale*0.9);
       // scale=0.8;//obrisati
-      widgets.add(ReceiptListItem(colors[i],screenWidth,scale,translate,scrollController,i));
+      // widgets.add(ReceiptListItem(colors[i],scale,translate,scrollController,i));
+      widgets.add(ReceiptView(receipts[i],i,scrollController,translate,scale));
+
     }
     return PageView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: widgets.length,
       controller: scrollController,
+      clipBehavior: Clip.none,
       itemBuilder: (context,index){
         return widgets[index];
     });
@@ -88,7 +90,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
 
   Widget info(){
     FontWeight weight=FontWeight.bold;
-    double fontSize=25;
+    double fontSize=20;
     var decorationDark=TextStyle(
       fontSize: fontSize,
       color: Colors.black,
@@ -158,11 +160,10 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
 class ReceiptListItem extends StatelessWidget {
   final Color color;
   final double scale;
-  final double width;
   final double translate;
   final PageController controller;
   final int id;
-  const ReceiptListItem(this.color,this.width,this.scale,this.translate,this.controller,this.id,{ Key? key }) : super(key: key);
+  const ReceiptListItem(this.color,this.scale,this.translate,this.controller,this.id,{ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -174,30 +175,27 @@ class ReceiptListItem extends StatelessWidget {
         offset: Offset(0,translate),
         child: Transform.scale(
           scale: scale,
-          child: SizedBox(
-            width:width,
-            child: Container(
-              clipBehavior: Clip.none,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Transform.translate(
-                  offset: Offset(0,-25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xff515151)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlutterLogo(size: 50),
-                    ),
-                  )
-                ),
+          child: Container(
+            clipBehavior: Clip.none,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Transform.translate(
+                offset: Offset(0,-25),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xff515151)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlutterLogo(size: 50),
+                  ),
+                )
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: color,
-              ),
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: color,
             ),
           ),
         ),

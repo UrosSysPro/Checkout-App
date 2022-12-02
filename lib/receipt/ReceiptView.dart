@@ -1,23 +1,27 @@
 import 'package:check_out_app/receipt/ReceiptModel.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ReceiptView extends StatelessWidget {
   final PageController controller;
-  final double translate,width,scale;
+  final double translate,scale;
   final int id;
   final ReceiptModel model;
+
+
   const ReceiptView(
     this.model,
     this.id,
     this.controller,
     this.translate,
     this.scale,
-    this.width,
     { Key? key }
   ) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+
     return GestureDetector(
       onTap: (){
         controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
@@ -26,33 +30,88 @@ class ReceiptView extends StatelessWidget {
         offset: Offset(0,translate),
         child: Transform.scale(
           scale: scale,
-          child: SizedBox(
-            width:width,
-            child: Container(
-              clipBehavior: Clip.none,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Transform.translate(
-                  offset: Offset(0,-25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xff515151)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlutterLogo(size: 50),
-                    ),
-                  )
-                ),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                // color: color,
-              ),
-            ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              receiptList(),
+              logo()
+            ],
           ),
+        )
+      ),
+    );
+  }
+
+  Widget receiptList(){
+    double textSize=10;
+    List<Widget> widgets=[];
+    widgets.add(receiptText("=======FISKALNI RACUN======",));
+    widgets.add(receiptText(model.prodavnica));
+    widgets.add(receiptText(model.adresa));
+    widgets.add(Row(children: [receiptText("Kasir:"),receiptText("smena1")],mainAxisAlignment: MainAxisAlignment.spaceBetween,));
+    widgets.add(receiptText("=====PROMET PRODAJA====="));
+    widgets.add(receiptText("Artikli"));
+    widgets.add(receiptText("=================================="));
+    widgets.add(receiptText("Naziv    Cena     Kol.      Ukupno"));
+    for(Artikal a in model.artikli){
+      var naziv=receiptText(a.naziv);
+      var cena=receiptText(a.cena.toString());
+      var kolicina=receiptText(a.kolicina.toString());
+      var ukupno=receiptText((a.kolicina*a.cena).toString());
+
+      widgets.add(Row(
+        children: [naziv,cena,kolicina,ukupno],
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      ));
+    }
+    widgets.add(receiptText("=================================="));
+    widgets.add(QrImage(data: model.code,version: 10,));
+    widgets.add(receiptText("=================================="));
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 20,
+            color: Colors.black54,
+            offset: Offset(0,10),
+            spreadRadius: -20
+          )
+        ]
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: SingleChildScrollView(
+        child: Column(
+          children: widgets,
+          crossAxisAlignment: CrossAxisAlignment.start,  
         ),
+      ),
+    );
+  }
+  Widget receiptText(String value){
+    return Text(value,
+      style: TextStyle(
+        fontSize: 10,
+      ),
+    );
+  }
+  Widget logo(){
+    return  Align(
+      alignment: Alignment.topCenter,
+      child: Transform.translate(
+        offset: Offset(0,-25),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Color(0xff515151)
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FlutterLogo(size: 50),
+          ),
+        )
       ),
     );
   }

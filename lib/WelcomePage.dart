@@ -1,6 +1,5 @@
 import 'package:check_out_app/MainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 
 class WelcomePage extends StatefulWidget {
 
