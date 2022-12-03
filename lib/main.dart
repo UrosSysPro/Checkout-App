@@ -17,7 +17,7 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Check out",
-    home: MainPage(),
+    home: WelcomePage(),
   ));
 }
 

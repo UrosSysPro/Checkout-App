@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CameraReaderWidget extends StatefulWidget {
   const CameraReaderWidget({ Key? key }) : super(key: key);
@@ -11,6 +12,7 @@ class CameraReaderWidget extends StatefulWidget {
 class _CameraReaderWidgetState extends State<CameraReaderWidget> {
 
   bool enableTorch=false;
+  bool popUpOpened=false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
                 );
               });
             }else{
-                
+              showAddReceiptPopUp(barCode.rawValue!);
             }
           },
         ),
@@ -67,7 +69,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
                 icon:Icon(Icons.bolt_outlined),
                 onPressed: (){
                   setState(() {
-                    enableTorch=!enableTorch;
+                    showAddReceiptPopUp("google.com");
                   });
                 },
               ),
@@ -75,6 +77,61 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
           ),
         )
       ],
+    );
+  }
+
+  void showAddReceiptPopUp(String value){
+    popUpOpened=true;
+    showModalBottomSheet(
+      context: context, builder: (context){
+        return Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: ListView(children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 60),
+              child: QrImage(data: value),
+            ),
+            Column(
+              children: [
+                Container(
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 1),
+                    child: SizedBox(
+                      height: 40,
+                      child: TextField(
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          hintText: "🔍 Search",
+                        ),
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.black12
+                  ),
+                ),
+                SizedBox(height: 20,),
+                ElevatedButton(
+                  onPressed: (){
+                    popUpOpened=false;
+                    Navigator.pop(context);
+                  },
+                  child: SizedBox(
+                    width: 1000,
+                    height: 40,
+                    child: Center(child: Text("Dodaj"),)
+                  )
+                )
+              ],
+            )
+          ],),
+        );
+      }
     );
   }
 }

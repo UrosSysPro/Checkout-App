@@ -1,5 +1,6 @@
 import 'package:check_out_app/CameraReaderWidget.dart';
 import 'package:check_out_app/CollectionOverViewWidget.dart';
+import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -11,6 +12,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex=1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   void _onTap(int index){
     setState(() {
