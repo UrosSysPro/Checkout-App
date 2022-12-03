@@ -1,3 +1,4 @@
+import 'package:check_out_app/MainPage.dart';
 import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +17,7 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Check out",
-    home: WelcomePage(),
+    home: MainPage(),
   ));
 }
 

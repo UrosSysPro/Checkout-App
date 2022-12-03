@@ -53,39 +53,23 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
 
   
   Widget receiptsList(){
-
-    List<Widget> widgets=[];
-    List<Color> colors=[
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.orange,
-      Colors.cyan,
-      Colors.lime,
-      Colors.purple
-    ];
     double screenWidth=MediaQuery.of(context).size.width*pageViewFraction;
-    for(int i=0;i<receipts.length;i++){
-      double scale=i*screenWidth-scrollOffset;
-      scale=scale>0?scale:-scale;
-      double translate=10-scale/10;
-      // translate=20;//obrisati
-      scale/=800;
-      scale=1.0-scale;
-      scale=max(0, scale*0.9);
-      // scale=0.8;//obrisati
-      // widgets.add(ReceiptListItem(colors[i],scale,translate,scrollController,i));
-      widgets.add(ReceiptView(receipts[i],i,scrollController,translate,scale));
-
-    }
+    
     return PageView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: widgets.length,
+      itemCount: receipts.length,
       controller: scrollController,
       clipBehavior: Clip.none,
       itemBuilder: (context,index){
-        return widgets[index];
-    });
+         double scale=index*screenWidth-scrollOffset;
+        scale=scale>0?scale:-scale;
+        double translate=10-scale/10;
+        scale/=800;
+        scale=1.0-scale;
+        scale=max(0, scale*0.9);
+        return ReceiptView(receipts[index],index,scrollController,translate,scale);
+      }
+    );
   } 
 
   Widget info(){

@@ -43,30 +43,42 @@ class ReceiptView extends StatelessWidget {
   }
 
   Widget receiptList(){
-    double textSize=10;
-    List<Widget> widgets=[];
-    widgets.add(receiptText("=======FISKALNI RACUN======",));
-    widgets.add(receiptText(model.prodavnica));
-    widgets.add(receiptText(model.adresa));
-    widgets.add(Row(children: [receiptText("Kasir:"),receiptText("smena1")],mainAxisAlignment: MainAxisAlignment.spaceBetween,));
-    widgets.add(receiptText("=====PROMET PRODAJA====="));
-    widgets.add(receiptText("Artikli"));
-    widgets.add(receiptText("=================================="));
-    widgets.add(receiptText("Naziv    Cena     Kol.      Ukupno"));
-    for(Artikal a in model.artikli){
-      var naziv=receiptText(a.naziv);
-      var cena=receiptText(a.cena.toString());
-      var kolicina=receiptText(a.kolicina.toString());
-      var ukupno=receiptText((a.kolicina*a.cena).toString());
+    // double textSize=10;
+    // List<Widget> widgets=[];
+    // widgets.add(receiptText("=======FISKALNI RACUN======",));
+    // widgets.add(receiptText(model.prodavnica));
+    // widgets.add(receiptText(model.adresa));
+    // widgets.add(Row(children: [receiptText("Kasir:"),receiptText("smena1")],mainAxisAlignment: MainAxisAlignment.spaceBetween,));
+    // widgets.add(receiptText("=====PROMET PRODAJA====="));
+    // widgets.add(receiptText("Artikli"));
+    // widgets.add(receiptText("=================================="));
+    // widgets.add(receiptText("Naziv   Cena     Kol.      Ukupno"));
+    // for(Artikal a in model.artikli){
+    //   var naziv=receiptText(a.naziv);
+    //   var cena=receiptText(a.cena.toString());
+    //   var kolicina=receiptText(a.kolicina.toString());
+    //   var ukupno=receiptText((a.kolicina*a.cena).toString());
 
-      widgets.add(Row(
-        children: [naziv,cena,kolicina,ukupno],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      ));
+    //   widgets.add(Row(
+    //     children: [naziv,cena,kolicina,ukupno],
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //   ));
+    // }
+    // widgets.add(receiptText("=================================="));
+    // widgets.add(QrImage(data: model.code,version: 10,));
+    // widgets.add(receiptText("=================================="));
+    String string="";
+    string+="=======FISKALNI RACUN======\n";
+    string+=model.prodavnica+"\n";
+    string+=model.adresa+"\n";
+    string+="kasir:      smena1\n";
+    string+="=====PROMET PRODAJA=====\n";
+    string+="Artikli\n";
+    string+="==================================\n";
+    string+="=Naziv   Cena     Kol.      Ukupno=\n";
+    for(Artikal a in model.artikli){
+      string+="${a.naziv}  ${a.cena}  ${a.kolicina}  ${a.cena*a.kolicina}\n";
     }
-    widgets.add(receiptText("=================================="));
-    widgets.add(QrImage(data: model.code,version: 10,));
-    widgets.add(receiptText("=================================="));
 
     return Container(
       decoration: BoxDecoration(
@@ -83,10 +95,16 @@ class ReceiptView extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: SingleChildScrollView(
-        child: Column(
-          children: widgets,
-          crossAxisAlignment: CrossAxisAlignment.start,  
-        ),
+        child:Column(
+          children: [
+            Text(string,
+              style: TextStyle(
+                fontSize: 10
+              ),
+            ),
+            // QrImage(data: model.code)
+          ],
+        )
       ),
     );
   }
