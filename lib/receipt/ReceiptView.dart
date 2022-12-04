@@ -34,6 +34,7 @@ class ReceiptView extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               receiptList(),
+              // Container(color: Colors.green,),
               logo()
             ],
           ),
@@ -79,6 +80,11 @@ class ReceiptView extends StatelessWidget {
     for(Artikal a in model.artikli){
       string+="${a.naziv}  ${a.cena}  ${a.kolicina}  ${a.cena*a.kolicina}\n";
     }
+
+    for(int i=0;i<1000;i++){
+      string+="aaaa";
+    }
+
 
     return Container(
       decoration: BoxDecoration(

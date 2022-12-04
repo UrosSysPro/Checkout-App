@@ -1,5 +1,6 @@
 import 'package:check_out_app/CameraReaderWidget.dart';
 import 'package:check_out_app/CollectionOverViewWidget.dart';
+import 'package:check_out_app/CuponPage.dart';
 import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class _MainPageState extends State<MainPage> {
         Widget child=Container(color: Colors.red,);
         if(_selectedIndex==0)child=CollectionOverViewWidget();
         if(_selectedIndex==1)child=CameraReaderWidget();
-        if(_selectedIndex==2)child=Container(color: Colors.blue,);
+        if(_selectedIndex==2)child=CuponPage();
 
         return child;
       }),
