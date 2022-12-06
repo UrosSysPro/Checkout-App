@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:check_out_app/CameraReaderWidget.dart';
 import 'package:check_out_app/CollectionOverViewWidget.dart';
 import 'package:check_out_app/CuponPage.dart';
@@ -52,12 +53,24 @@ class _MainPageState extends State<MainPage> {
 
         return child;
       }),
+
+      // floatingActionButton: FloatingActionButton(
+      //   child: Container(),
+      //   onPressed: (){},
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+   
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.green,
         iconSize: 30,
         // showUnselectedLabels: false,
         // showSelectedLabels: false,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
+        // icons: [Icons.home_repair_service,Icons.receipt_long_rounded,Icons.receipt],
+        // notchSmoothness: NotchSmoothness.defaultEdge,
+        // leftCornerRadius: 32,
+        // rightCornerRadius: 32,
+        // gapLocation: GapLocation.center,
         // fixedColor: Colors.green,
         items: [
           BottomNavigationBarItem(            

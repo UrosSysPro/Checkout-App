@@ -1,8 +1,9 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+
 
 class CameraReaderWidget extends StatefulWidget {
   const CameraReaderWidget({ Key? key }) : super(key: key);
@@ -14,6 +15,7 @@ class CameraReaderWidget extends StatefulWidget {
 class _CameraReaderWidgetState extends State<CameraReaderWidget> {
   var cameraController=MobileScannerController(torchEnabled: false);
   var popUpOpened=false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
           onDetect: (barCode,args){
             if(barCode.rawValue==null){
               if(!popUpOpened){
-                
+                incorrectQrCode();
               }
             }else{
               if(!popUpOpened) {
@@ -36,6 +38,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
             }
           },
         ),
+        
         Center(
           child: SizedBox(
             width: 300,
@@ -106,7 +109,8 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
                         children: [
                           closeButton(context),
                           receiptTitle("Maxi"),
-                          qrCode(value),
+                          // qrCode(value),
+                          Text(value),
                           const SizedBox(height: 20,),
                           nameEdit(),
                           const SizedBox(height: 20,),
@@ -126,7 +130,9 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
         );
       }
     );
-    res.whenComplete(() => popUpOpened=false);
+    res.whenComplete(() {
+      popUpOpened=false;
+    });
   }
   Widget closeButton(BuildContext context){
     return Align(
