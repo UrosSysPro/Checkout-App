@@ -1,24 +1,38 @@
+import 'package:check_out_app/EditReceiptPage.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ReceiptView extends StatelessWidget {
   final PageController controller;
   final double translate,scale;
   final int id;
   final ReceiptModel model;
-  const ReceiptView(
+  final int selectedReceipt;
+  late final String receiptAsString;
+  ReceiptView(
     this.id,
     this.model,
     this.translate,
     this.scale,
-    this.controller,{ Key? key }) : super(key: key);
+    this.controller,
+    this.selectedReceipt,{ Key? key }
+  ) : super(key: key){
+    receiptAsString=model.printReceipt();
+  }
 
   
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+        if(id==selectedReceipt)
+          Navigator.push(context, MaterialPageRoute(builder:(context){
+              return EditReceiptPage(model: model);
+            } 
+          ));
+        else
+          controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
       },
       child: Transform.translate(
         offset: Offset(0,translate),
@@ -38,11 +52,9 @@ class ReceiptView extends StatelessWidget {
   }
 
   Widget receiptList(){
-    String string="";
+    String string=receiptAsString;
     
-    int lineWidth=40;
-    string+="============ ФИСКАЛНИ РАЧУН ============";
-
+    
 
     return Container(
       decoration: BoxDecoration(
@@ -58,17 +70,18 @@ class ReceiptView extends StatelessWidget {
         ]
       ),
       clipBehavior: Clip.antiAlias,
-      child: SingleChildScrollView(
-        child:Column(
-          children: [
-            Text(string,
-              style: TextStyle(
-                fontSize: 10
-              ),
+      child: ListView(
+        padding: EdgeInsets.all(8),
+        children:[
+          Text(string,
+            style: TextStyle(
+              fontSize: 9
             ),
-            // QrImage(data: model.code)
-          ],
-        )
+          ),
+          Image(
+            image: AssetImage("assets/qr-code.png"),
+          )
+        ]
       ),
     );
   }

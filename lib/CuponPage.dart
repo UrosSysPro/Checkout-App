@@ -47,7 +47,11 @@ class CuponView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            Expanded(child: FlutterLogo(size: 60),flex: 1,),
+            Expanded(child: Image(
+              image: AssetImage("assets/monitor.png"),
+              width: 60,
+              fit: BoxFit.cover,
+            ),flex: 1,),
             
             Expanded(child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

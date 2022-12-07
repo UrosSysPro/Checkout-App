@@ -4,6 +4,7 @@ import 'package:check_out_app/CollectionOverViewWidget.dart';
 import 'package:check_out_app/CuponPage.dart';
 import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({ Key? key }) : super(key: key);
@@ -34,7 +35,10 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         // toolbarHeight: 70,
         leading:Center(
-          child: const FlutterLogo(size:35)
+          child: Hero(
+            tag: "logo1",
+            child: SvgPicture.asset("assets/logo.svg")
+          ),
         ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -62,6 +66,7 @@ class _MainPageState extends State<MainPage> {
    
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.black54,
         iconSize: 30,
         // showUnselectedLabels: false,
         // showSelectedLabels: false,
@@ -74,16 +79,23 @@ class _MainPageState extends State<MainPage> {
         // fixedColor: Colors.green,
         items: [
           BottomNavigationBarItem(            
-            label: "Overview",
-            icon: Icon(Icons.home_repair_service)
+            label: "Racuni",
+            icon: SvgPicture.asset(
+              "assets/receipts.svg",
+              color: _selectedIndex==0?Colors.green:Colors.black54,
+            )
           ),
           BottomNavigationBarItem(
-            label: "Scanner",
-            icon: Icon(Icons.receipt_long_rounded)
+            label: "Skener",
+            icon: SvgPicture.asset("assets/scanner.svg",
+              color: _selectedIndex==1?Colors.green:Colors.black54,
+            )
           ),
           BottomNavigationBarItem(
-            label: "Cupons",
-            icon: Icon(Icons.receipt)
+            label: "Popusti",
+            icon: SvgPicture.asset("assets/cupons.svg",
+              color: _selectedIndex==2?Colors.green:Colors.black54,
+            )
           ),
         ],
         onTap: _onTap,

@@ -87,11 +87,30 @@ class ReceiptModel{
     );
   }
 
-  void printReceipt(){
-    print("$name");
+  String printReceipt(){
+    String line  ="========================================";
+    String spaces="                                        ";
+    int len=0;
+    String text="";
+    text+=line.substring(0,13)+"FISKALNI RACUN"+line.substring(0,13)+"\n";
+    text+=placeOfPurchase.business.tin.toString()+"\n";
+    text+=placeOfPurchase.adress+"\n";
+    text+=placeOfPurchase.name+"\n";
+    text+="Kasir"+spaces.substring(5,30)+placeOfPurchase.cashier.toString()+"\n";
+    text+="$line\n";
+    text+="Назив   Цена         Кол.         Укупно\n";
     for(ArtikalModel a in items){
-      print(a.name);
+      text+="${a.name}  ${a.price} ${a.quantity}   ${a.total}\n";
     }
+    text        +="---------------------------------------\n";
+    text+="Ukupan iznos:                     $totalPrice\n";
+    text+="Gotovina                         $paid\n";
+    text+="$line\n";
+    text+="ПФР време:          ${time}\n";
+    text+="ПФР број рачуна: $invoiceNumber\n";
+    text+="Бројач рачуна:             $invoiceCounter\n";
+    text+="$line\n";
+    return text;
   }
 }
 

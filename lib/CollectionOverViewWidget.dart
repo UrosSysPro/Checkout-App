@@ -19,6 +19,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   late FocusNode focusNode;
   BorderRadius searchRadius=BorderRadius.circular(15);
   EdgeInsets searchPadding=EdgeInsets.symmetric(horizontal: 50,vertical: 20);
+  int selectedReceipt=0;
  
   @override
   void initState() {
@@ -83,6 +84,11 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       itemCount: receipts.length,
       controller: scrollController,
       clipBehavior: Clip.none,
+      onPageChanged: (index){
+        setState(() {
+          selectedReceipt=index;
+        });
+      },
       itemBuilder: (context,index){
         double scale=index*screenWidth-scrollOffset;
         scale=scale>0?scale:-scale;
@@ -90,12 +96,22 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
         scale/=800;
         scale=1.0-scale;
         scale=max(0, scale*0.9);
-        return ReceiptView(index,receipts[index],translate,scale,scrollController);
+        return ReceiptView(index,receipts[index],translate,scale,scrollController,selectedReceipt);
       }
     );
   } 
 
   Widget info(){
+    String prodavnica=receipts[selectedReceipt].placeOfPurchase.business.name;
+    String datum=receipts[selectedReceipt].scanned;
+    double total=receipts[selectedReceipt].totalPrice;
+    String valuta="RSD";
+    String imeRacuna=receipts[selectedReceipt].name;
+
+    if(prodavnica.length>10){
+      prodavnica=prodavnica.substring(0,10)+"...";
+    }
+
     FontWeight weight=FontWeight.bold;
     double fontSize=20;
     var decorationDark=TextStyle(
@@ -115,20 +131,20 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Maxi",style: decorationGray,),
+            Text(prodavnica,style: decorationGray,),
             SizedBox(width: 5,),
-            Text("6.10.2022",style: decorationDark,)],
+            Text(datum.substring(0,10),style: decorationDark,)],
         ),
         SizedBox(height: 5,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("4500",style: decorationGray,),
+            Text("${total.toInt()}",style: decorationGray,),
             SizedBox(width: 5,),
-            Text("RSD",style: decorationDark,)],
+            Text(valuta,style: decorationDark,)],
         ),
         SizedBox(height: 5,),
-        Text("\"Posudje\"",style: decorationDark,),
+        Text("\"$imeRacuna\"",style: decorationDark,),
         SizedBox(height: 5,),
       ]
     );

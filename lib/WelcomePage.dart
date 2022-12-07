@@ -24,7 +24,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
   void initState(){
     // TODO: implement initState
     super.initState();
-    controller=new AnimationController(vsync: this,duration: Duration(seconds: 10));
+    controller=new AnimationController(vsync: this,duration: Duration(seconds: 1));
     controller.addStatusListener((status) {
       if(status==AnimationStatus.completed){
         Navigator.pushReplacement(context, 
@@ -64,7 +64,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
             child: Stack(
               fit: StackFit.expand,
               children: [
-                FourCornerRectangle(200, 200),
+                Center(child: FourCornerRectangle(180, 180)),
                 Center(
                   child: Column(
                     children: [
@@ -77,7 +77,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
               ],
             ),
             decoration: BoxDecoration(
-              color: Colors.white70,
+              color: Colors.white.withAlpha(230),
               borderRadius: BorderRadius.circular(30)
             ),
           ),
@@ -97,8 +97,8 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
     for(var jsonReceipt in l){
       receipts.add(ReceiptModel.fromJson(jsonReceipt));
     }
-    for(ReceiptModel r in receipts){
-      r.printReceipt();
-    }
+    // for(ReceiptModel r in receipts){
+    //   r.printReceipt();
+    // }
   }
 }
