@@ -1,27 +1,21 @@
-import 'package:check_out_app/receipt/ReceiptModel.dart';
+import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class ReceiptView extends StatelessWidget {
   final PageController controller;
   final double translate,scale;
   final int id;
   final ReceiptModel model;
-
-
   const ReceiptView(
-    this.model,
     this.id,
-    this.controller,
+    this.model,
     this.translate,
     this.scale,
-    { Key? key }
-  ) : super(key: key);
+    this.controller,{ Key? key }) : super(key: key);
 
+  
   @override
   Widget build(BuildContext context) {
-
-
     return GestureDetector(
       onTap: (){
         controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
@@ -45,21 +39,9 @@ class ReceiptView extends StatelessWidget {
 
   Widget receiptList(){
     String string="";
-    // string+="=======FISKALNI RACUN======\n";
-    // string+=model.prodavnica+"\n";
-    // string+=model.adresa+"\n";
-    // string+="kasir:      smena1\n";
-    // string+="=====PROMET PRODAJA=====\n";
-    // string+="Artikli\n";
-    // string+="==================================\n";
-    // string+="=Naziv   Cena     Kol.      Ukupno=\n";
-    // for(Artikal a in model.artikli){
-    //   string+="${a.naziv}  ${a.cena}  ${a.kolicina}  ${a.cena*a.kolicina}\n";
-    // }
-
-    for(int i=0;i<1000;i++){
-      string+="aaaa";
-    }
+    
+    int lineWidth=40;
+    string+="============ ФИСКАЛНИ РАЧУН ============";
 
 
     return Container(

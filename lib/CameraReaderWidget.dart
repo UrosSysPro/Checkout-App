@@ -1,4 +1,4 @@
-
+import 'package:check_out_app/ExpandableSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -24,7 +24,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
       children: [
         MobileScanner(
           fit: BoxFit.cover,
-          allowDuplicates: false,
+          allowDuplicates: true,
           controller:cameraController,
           onDetect: (barCode,args){
             if(barCode.rawValue==null){
@@ -169,29 +169,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
     );
   }
   Widget nameEdit(){
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      child: const Padding(
-        padding: EdgeInsets.only(bottom: 1),
-        child: SizedBox(
-          height: 40,
-          child: TextField(
-            style: TextStyle(
-              fontSize: 16,
-            ),
-            textAlign: TextAlign.center,
-            textAlignVertical: TextAlignVertical.top,
-            decoration: InputDecoration(
-              hintText: "Ime Racuna",
-            ),
-          ),
-        ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.black12
-      ),
-    );
+    return ExpandableSearch(radius: BorderRadius.circular(15),);
   }
   Widget addReceiptButton(BuildContext context){
     return ElevatedButton(

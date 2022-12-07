@@ -1,6 +1,7 @@
-import 'package:check_out_app/MainPage.dart';
+import 'dart:convert';
 import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
@@ -14,6 +15,9 @@ void main() async {
     // );
     // FirebaseAnalytics analytics = FirebaseAnalytics.instance;
     // print(analytics);
+  // var jsonData=await loadJson("assets/getReceiptsForUser.json");
+  // loadReceipts(jsonData);
+  
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Check out",

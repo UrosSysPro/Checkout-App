@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:check_out_app/FourCornerRectangle.dart';
 import 'package:check_out_app/MainPage.dart';
+import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 class WelcomePage extends StatefulWidget {
 
@@ -15,10 +21,10 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
   late AnimationController controller;
 
   @override
-  void initState() {
+  void initState(){
     // TODO: implement initState
     super.initState();
-    controller=new AnimationController(vsync: this,duration: Duration(milliseconds: 300));
+    controller=new AnimationController(vsync: this,duration: Duration(seconds: 10));
     controller.addStatusListener((status) {
       if(status==AnimationStatus.completed){
         Navigator.pushReplacement(context, 
@@ -29,7 +35,11 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
       }
     });
     controller.forward();
+    var jsonData= loadJson("assets/getReceiptsForUser.json");
+    loadReceipts(jsonData);
   }
+
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -50,17 +60,45 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
         ),
         Center(
           child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: FlutterLogo(size:150),
+            width: 200,height: 200,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                FourCornerRectangle(200, 200),
+                Center(
+                  child: Column(
+                    children: [
+                      SvgPicture.asset("assets/logo.svg"),
+                      SvgPicture.asset("assets/CheckOut.svg"),
+                    ],
+                    mainAxisSize: MainAxisSize.min,
+                  ),
+                ),
+              ],
             ),
             decoration: BoxDecoration(
-              color: Colors.black26.withAlpha(150),
+              color: Colors.white70,
               borderRadius: BorderRadius.circular(30)
             ),
           ),
         )
       ]
     );
+  }
+
+  Future<List> loadJson(String fileName) async{
+      var jsonText = await rootBundle.loadString(fileName);
+      List jsonData=json.decode(jsonText);
+      return jsonData;
+  }
+
+  void loadReceipts(Future<List> jsonData) async{
+    List l=await jsonData;
+    for(var jsonReceipt in l){
+      receipts.add(ReceiptModel.fromJson(jsonReceipt));
+    }
+    for(ReceiptModel r in receipts){
+      r.printReceipt();
+    }
   }
 }

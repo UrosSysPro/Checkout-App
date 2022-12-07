@@ -1,0 +1,449 @@
+[
+    {
+        "id": 1,
+        "placeOfPurchase": {
+            "id": 1,
+            "business": {
+                "id": 1,
+                "name": "DELHAIZE SERBIA",
+                "logo": null,
+                "tin": 103482850
+            },
+            "name": "6217 Stari Đeram",
+            "address": "БУЛЕВАР КРАЉА АЛЕКСАНДРА 113   ",
+            "place": "Београд-Звездара",
+            "cashier": null,
+            "posnumber": "253/490"
+        },
+        "receiptBody": {
+            "items": [
+                {
+                    "id": 1,
+                    "name": "Cigarete Pall Mall ss Violet/",
+                    "price": 330.0,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 330.0,
+                    "product": null
+                },
+                {
+                    "id": 2,
+                    "name": "Sos Napolitana Barilla 400g/",
+                    "price": 339.99,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 339.99,
+                    "product": null
+                },
+                {
+                    "id": 3,
+                    "name": "Pavlza kuvMegg20%mm 05l/",
+                    "price": 384.99,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 384.99,
+                    "product": null
+                },
+                {
+                    "id": 4,
+                    "name": "Testenspirala vitA i D3 400g/",
+                    "price": 98.99,
+                    "quantity": 2.0,
+                    "weighted": false,
+                    "total": 197.98,
+                    "product": null
+                },
+                {
+                    "id": 5,
+                    "name": "Gel tusMen ClcomfDove 250ml/",
+                    "price": 270.5,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 270.5,
+                    "product": null
+                },
+                {
+                    "id": 6,
+                    "name": "SladNajlepse zelje stap81g/",
+                    "price": 140.0,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 140.0,
+                    "product": null
+                },
+                {
+                    "id": 7,
+                    "name": "Napolitanka Kit Kat ChanKy40g/",
+                    "price": 49.99,
+                    "quantity": 6.0,
+                    "weighted": false,
+                    "total": 299.94,
+                    "product": null
+                }
+            ],
+            "totalPrice": 1963.4,
+            "cash": false,
+            "paid": 1963.4
+        },
+        "tax": null,
+        "totalTaxValue": 327.23,
+        "sdc": {
+            "time": "2022-11-10T13:04:08",
+            "invoiceNumber": "Q4MM9AEU-Q4MM9AEU-89846",
+            "invoiceCounter": "89821/89846ПП"
+        },
+        "user": {
+            "id": "1",
+            "created": "2022-11-28T12:41:55",
+            "password": "admin",
+            "birthDate": null,
+            "ethnicity": null,
+            "nationality": "Serbian",
+            "maritalStatus": "forever alone",
+            "salary": 0,
+            "male": true
+        },
+        "deleted": null,
+        "scanned": "2022-11-28T13:42:23",
+        "name": null,
+        "validUntil": null,
+        "url": "https://suf.purs.gov.rs/v/?vl=A1E0TU05QUVVUTRNTTlBRVX2XgEA3V4BAFCXKwEAAAAAAAABhGFtEo0AAAC6m+M7qKFBpCc23P3iZpssfzAg5P3I9YilrQjVxFlAR5hOW9qJ+1GeBjwLLR/8sLlUa6QxQbMOU0OILNTvsdZYiNMrYX7E9GuTcSeWBbLxHRAOeyAQ7Bp49e95usiw9eBortkN/7I9YicYTHsFyYP0eQLDIG3Z+IRfSx6mE5o07WLrNG0dLbARIWQPij/6dCoOj72h+dSbaKgZF9p8zBWRL5VmbGKqGGDbrmkZXkxI2HPFAINy7mJ1TA/yaRwwgIiaimpGJNShck/KcTOiP8CVPXAgexTDwzx3a+FSwKE8TjniSc4HOJuM2DUc9Gnpl3GRGSnA3xQGnSQCuXa4+ZU3Ub6/xb8DXrnhwQNFhRZ33osuyZmVYbktt6g2+H/I+moMAjb5nhUpGYOSrjB2ymgqg+zDTX3HuRn6S+/jbufl4KPfvF1Eef+MMpLwk6VhxqbHWIa0aOk+htjFxCv/o2sTC+PA+XUQ70nPQSCzwh7uJEbcDLxzgzGn4DOZnbaeTh49X7mT9sLLoOBaii3SjXWo2b1d0Ot+T2pM4H/gH3lIC3BKlfF5oROXvvBYBsSIbULnyNOkbBM5ynw3LFf/kTw3mgDf38W+xHCFiYnMECEjEgMDwn3aDOvbBFiQGLY8gOpjlzAwW3EwAF3mT1iVgQh9xi1G6QQgsLrzYFlGjjwSS9pTgSfNH8/D/vgql/EqrR8=",
+        "qrcode": null,
+        "warranty": false
+    },
+    {
+        "id": 2,
+        "placeOfPurchase": {
+            "id": 2,
+            "business": {
+                "id": 1,
+                "name": "DELHAIZE SERBIA",
+                "logo": null,
+                "tin": 103482850
+            },
+            "name": "102-Maxi",
+            "address": "Драгице Кончар 33А   ",
+            "place": "Београд-Вождовац",
+            "cashier": null,
+            "posnumber": "253/490"
+        },
+        "receiptBody": {
+            "items": [
+                {
+                    "id": 8,
+                    "name": "Krompir slatki batat domaci/ (Е)",
+                    "price": 269.99,
+                    "quantity": 0.246,
+                    "weighted": true,
+                    "total": 66.42,
+                    "product": null
+                },
+                {
+                    "id": 9,
+                    "name": "Kukuruz przeni cili 70g Mogyi/",
+                    "price": 65.99,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 65.99,
+                    "product": null
+                }
+            ],
+            "totalPrice": 132.41,
+            "cash": true,
+            "paid": 200.0
+        },
+        "tax": null,
+        "totalTaxValue": 17.04,
+        "sdc": {
+            "time": "2022-11-07T20:45:41",
+            "invoiceNumber": "KKSSZBJQ-KKSSZBJQ-86918",
+            "invoiceCounter": "86693/86918ПП"
+        },
+        "user": {
+            "id": "1",
+            "created": "2022-11-28T12:41:55",
+            "password": "admin",
+            "birthDate": null,
+            "ethnicity": null,
+            "nationality": "Serbian",
+            "maritalStatus": "forever alone",
+            "salary": 0,
+            "male": true
+        },
+        "deleted": null,
+        "scanned": "2022-11-28T13:53:15",
+        "name": null,
+        "validUntil": null,
+        "url": "https://suf.purs.gov.rs/v/?vl=A0tLU1NaQkpRS0tTU1pCSlGGUwEApVIBAEQ0FAAAAAAAAAABhFOgi40AAACxDrZOtSkZlc89nUjYRH6lR6SLhlHjm9HpVw6RMqZSpyDavzqJcmqsQFoWM4AmlInTjVh0GGkoLVhYFnkjIO4h5GgsdSRg4ZyyMv0+qq5iGOea80Ts9/jEhsgj6i2G/3IsEM39oF9vEtQOBm1Awz9L38TILjXa+gHfaqj0o9aXuR3JrBWwfDQkcySx0HpWavmIDwJSDfpajkdRJc1tJnSb2rJOCnQgmHzz9LFsgtOnYhWFx7JiGgiQtQzzRr/NzCns/Qkr7xHjXu4I4BEADq9d5WqvqLkfXu8LlvJWA7OTB+K9LEEnAD0/Q/pUlvVAhGzryLp5U/jrbRLjsNGIpxA3k8tkphtAsTd5Nota+62zvC9tjYui69J/DD2HGknbQQrbSumo3Bxgo4hq4axvaVx4G1yMDQRHxDshqJgtuU0IvdY7Zfmo9JYA9wau6bDnIyAsSMXvUVk0D8693tbrNDExOoxyKV1ZFLIwBwFbD2qpme+SelhFWBkEEQW6Yxvh707h7Ufo3D6PP/ep8oL3ckYRqL24Gdckn1j86nk+ewZPKYF27sZk9eC2GoOpalMQaI6c7RPGz832F/r+L7EnEUpNWVYvRXp9bbTA8KSsd5bz+PbPWON7yjI49Yi71LxX6b2nus57xprbXtnITjed3SRRrhZnSJg5Hu7EyCrn8Jst1VrIs4zpDGyv/XjnCTB1YCw=",
+        "qrcode": null,
+        "warranty": false
+    },
+    {
+        "id": 3,
+        "placeOfPurchase": {
+            "id": 3,
+            "business": {
+                "id": 2,
+                "name": "BAS",
+                "logo": null,
+                "tin": 100000694
+            },
+            "name": "Киоск 4",
+            "address": "ЖЕЛЕЗНИЧКА 4   ",
+            "place": "Београд-Савски Венац",
+            "cashier": null,
+            "posnumber": "602/10"
+        },
+        "receiptBody": {
+            "items": [
+                {
+                    "id": 10,
+                    "name": "Akva viva 075 hydro-breskva / 0.75 l",
+                    "price": 170.0,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 170.0,
+                    "product": null
+                },
+                {
+                    "id": 11,
+                    "name": "Snickers classic 50gr 1/40 / 50 g",
+                    "price": 120.0,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 120.0,
+                    "product": null
+                }
+            ],
+            "totalPrice": 290.0,
+            "cash": true,
+            "paid": 500.0
+        },
+        "tax": null,
+        "totalTaxValue": 48.33,
+        "sdc": {
+            "time": "2022-11-17T06:20:53",
+            "invoiceNumber": "EKTC6GS5-EKTC6GS5-36324",
+            "invoiceCounter": "36279/36324ПП"
+        },
+        "user": {
+            "id": "1",
+            "created": "2022-11-28T12:41:55",
+            "password": "admin",
+            "birthDate": null,
+            "ethnicity": null,
+            "nationality": "Serbian",
+            "maritalStatus": "forever alone",
+            "salary": 0,
+            "male": true
+        },
+        "deleted": null,
+        "scanned": "2022-11-28T13:53:20",
+        "name": null,
+        "validUntil": null,
+        "url": "https://suf.purs.gov.rs/v/?vl=A0VLVEM2R1M1RUtUQzZHUzXkjQAAt40AACBALAAAAAAAAAABhIQIYwgAAAA5zqXzOkGPMRcXZx7IspGW3VJtlXWrq4LnUar1eHYCpPpJcycWdRRbJW1/YM Cn2uVSHLfLH1V8ipjgjdp u3dr Jt3H4F/wpQhZPqhXyfELhD1RUFlRfoYjB1uudgqyP7oYD4XFm3SrWq 8RtipWammbyQfwOGDV74ZaLe0WqLvnFQOANtdRBMOVw7fIUByfBIF Ksy/2X5fqgZarLEJfStBmfRMmOUwj454C4a0 9YziB1pWWwKvKfccWBdjWbLgg/M0kplefL8ShZYDTWt3XY4vHhfIHEuhZngMPJ3vqIvbLm0L075M g  VHA18R7cf6Aa9waaw5U5QHgPDar1IjVwDMCLw 9S OU38piRgYFYmvq/SkQYxpT4P4GmqtHJF63rIhwpFy68UfWNf5305vhv42XqdzxEWgHF4DPKH7cwTwW9zZd7f6nqGeom4aC08cLHzH14JY7X4/TZTGFqGOZ6l ww368tUzB/5QEVzxVacEmCOodJFP7189aMYQVmIObGcR98PmzSrUWlURCZADPagU0RWuJTbeExCRlPwb8PnEQ0Pvv6CU6IphxZK6/WdkOx3uN3cv2d/PIqqfxTe37bnZ7/u5WtlrgI2BI73URGXzsas1BEwl2xZhcd/eXNnNE/OSAeN75goh/8IHeab/hq8P4Pj 7zJRC zgBJ9nB348/k8yBKEcTmS4MsU04=",
+        "qrcode": null,
+        "warranty": false
+    },
+    {
+        "id": 4,
+        "placeOfPurchase": {
+            "id": 4,
+            "business": {
+                "id": 3,
+                "name": "IVAN RALINOVSKI PREDUZETNIK KOKTEL BAR KONJARNIK BEOGRAD (ZVEZDARA)",
+                "logo": null,
+                "tin": 106007073
+            },
+            "name": "Бар Коњарник",
+            "address": "УСТАНИЧКА 170Е  1 ",
+            "place": "Београд-Звездара",
+            "cashier": null,
+            "posnumber": "230/20"
+        },
+        "receiptBody": {
+            "items": [
+                {
+                    "id": 12,
+                    "name": "TOCENO BUDWEISER 05() (А)",
+                    "price": 220.0,
+                    "quantity": 3.0,
+                    "weighted": false,
+                    "total": 660.0,
+                    "product": null
+                },
+                {
+                    "id": 13,
+                    "name": "TOCENO CARLSBERG 05() (А)",
+                    "price": 300.0,
+                    "quantity": 1.0,
+                    "weighted": false,
+                    "total": 300.0,
+                    "product": null
+                },
+                {
+                    "id": 14,
+                    "name": "CAJ() (А)",
+                    "price": 210.0,
+                    "quantity": 2.0,
+                    "weighted": false,
+                    "total": 420.0,
+                    "product": null
+                }
+            ],
+            "totalPrice": 1380.0,
+            "cash": true,
+            "paid": 1380.0
+        },
+        "tax": null,
+        "totalTaxValue": 0.0,
+        "sdc": {
+            "time": "2022-11-22T19:10:08",
+            "invoiceNumber": "ABUHS6KA-ABUHS6KA-5087",
+            "invoiceCounter": "5084/5087ПП"
+        },
+        "user": {
+            "id": "1",
+            "created": "2022-11-28T12:41:55",
+            "password": "admin",
+            "birthDate": null,
+            "ethnicity": null,
+            "nationality": "Serbian",
+            "maritalStatus": "forever alone",
+            "salary": 0,
+            "male": true
+        },
+        "deleted": null,
+        "scanned": "2022-11-28T13:53:24",
+        "name": null,
+        "validUntil": null,
+        "url": "https://suf.purs.gov.rs/v/?vl=A0FCVUhTNktBQUJVSFM2S0HfEwAA3BMAAECS0gAAAAAAAAABhKCIdAAAAABulp/IksALBT5oJWjt8GFm0HcYi5dNp1CBMjK03/GYuqKyEeEmkOjJupM/OQvn86di7VRfwvHR3YvqPR5itRLvBR7p8rUGxpixzuY O2uo93PBAJqfllf9kMJr6v9InheTEuMkLZs0FtNCDsxVmSDKKp8Fc5SkVdtSANMVwbhxchCRRlipHb2wLbXl1LEHiJr5OC 8PI8gLeOQ6A pPr2EtFrBv6Ctc7lU0SnLs3I6N5S4622A7rxJ/1hYz1KA2re6e5LTGGzSOudvic/qMPRlWNb5a1JWpH8bmjNYFniaztE2cgDlW65IU8zGedLkrjt/epQid7oNFtN BzfZoB6QVZruKrMSSS9BBHbenkz2aLWA7/21XqSDKdD2RbdGOxAFKaDIzXS/mk tkwwHcbHPehP9vIeIjb6SUuSnasvGOX2BidaO3o1f5j7SDW7ARSGV2oz6oGlYMhl2NkaTH7wbaKUm2 4Fd3aug8AaQvn wlVazYs13EdTlG9G2ZEwYIBoxH0PxXj6mnc2BTkYtJQTN6QVLuw5w2h2mNxd7Q4ETRYMmBddkOFT52THXz3DXn5TDhcxMJ51xoqMFp1bXe6ceeaHQDsHdVlcdgq2I r58nm8kWQqby8gj2zFSpecy7Gm3uvkOEJ7oG0RoXUiS7uwMOw0/90rn55XtnrCM/nHlyY/CSUj2srg0ZtXakuX7o4=",
+        "qrcode": null,
+        "warranty": false
+    },
+    {
+        "id": 5,
+        "placeOfPurchase": {
+            "id": 5,
+            "business": {
+                "id": 4,
+                "name": "DOO VIVA TREF BEOGRAD (PALILULA)",
+                "logo": null,
+                "tin": 103891308
+            },
+            "name": "КОНЧАР",
+            "address": "ДРАГИЦЕ КОНЧАР 45   ",
+            "place": "Београд-Вождовац",
+            "cashier": null,
+            "posnumber": "738/10"
+        },
+        "receiptBody": {
+            "items": [
+                {
+                    "id": 15,
+                    "name": "P-LESNIK SIROVI 3 kg (Е)",
+                    "price": 945.0,
+                    "quantity": 0.208,
+                    "weighted": true,
+                    "total": 196.56,
+                    "product": null
+                },
+                {
+                    "id": 16,
+                    "name": "R-BADEM SIROVI 22682025  (Е)",
+                    "price": 859.0,
+                    "quantity": 0.2,
+                    "weighted": true,
+                    "total": 171.8,
+                    "product": null
+                }
+            ],
+            "totalPrice": 368.36,
+            "cash": true,
+            "paid": 368.36
+        },
+        "tax": null,
+        "totalTaxValue": 33.49,
+        "sdc": {
+            "time": "2022-11-16T16:46:51",
+            "invoiceNumber": "P748XQGV-W6UBPZO0-16044",
+            "invoiceCounter": "16036/16044ПП"
+        },
+        "user": {
+            "id": "1",
+            "created": "2022-11-28T12:41:55",
+            "password": "admin",
+            "birthDate": null,
+            "ethnicity": null,
+            "nationality": "Serbian",
+            "maritalStatus": "forever alone",
+            "salary": 0,
+            "male": true
+        },
+        "deleted": null,
+        "scanned": "2022-11-28T13:53:28",
+        "name": null,
+        "validUntil": null,
+        "url": "https://suf.purs.gov.rs/v/?vl=A1A3NDhYUUdWVzZVQlBaTzCsPgAApD4AABA1OAAAAAAAAAABhIEfHqgAAACN799eynMW+uTGVcF/EMTeW2H9i/3XWUj1nKlQZF/OCJ7qk+NvEp0GY+C5dnyZnKfi9PSF9LzZAACv28+DPrW7LFfMMFLHm+wI4h65aW3D1cIUljj8HxUWXPSR4hlrxavvqIoscyAtctfvKaJh1e8JgASDJOILwNdMi/nTOOo3XjB930Lp0eRKnM4BgK3YL1m+zBrAnRdQmg5pESJby5MCGIC3NCsmFFVJkKAsuPYGr8DeKqad9EIScniQqpx2DAJkGq/uXKp/0bHIYd0jyTTeizkUCnS8l8ohDaArZeD5nAnbi3rCgBuHlIf4D6JzWu03C8hhjz+BrXGVb03jlvqTjU7nm9l3YzmHSzOpMYM1QN6wqas5rM5r8hPRM24unsHw8wegd2ySleBtQBBY4RhrF8beUVgePew3PUharXjaj4gzde7s0QLVabspQc4WAkbe6ol/YBkiClj7AZfrsPTAfyBovDfpZz5S2GNsbD5CJ1ZuAmZzehDQPqHA/rdL0hZJTknqmFNnScjvI2d4I+sC9wSmHtg1E1JyiRMG7/Jrg41O0BvuWpXTrEeW9AZznm9Gtg6VVeQfH3VrTAYcMjD8oPi/CzuCsW3VnLWCurBLzfwk0sxHWZfwjjSAen8tYd2mUFNcbqkPTeHj+dZ2mSfr2aWmqzwcGyoV2r9V5swRFEqj7t55lhVUC6yk5oTADr0=",
+        "qrcode": null,
+        "warranty": false
+    },
+    {
+        "id": 6,
+        "placeOfPurchase": {
+            "id": 6,
+            "business": {
+                "id": 5,
+                "name": "JOVANOVIĆ M",
+                "logo": null,
+                "tin": 107413083
+            },
+            "name": " МАЛОПРОДАЈНИ ОБЈЕКАТ ДРАГИЦЕ КОНЧАР",
+            "address": "ДРАГИЦЕ КОНЧАР 45 А   ",
+            "place": "Београд-Вождовац",
+            "cashier": null,
+            "posnumber": "286/v10"
+        },
+        "receiptBody": {
+            "items": [
+                {
+                    "id": 17,
+                    "name": "Proje heljda /kg (Е)",
+                    "price": 900.0,
+                    "quantity": 0.1,
+                    "weighted": false,
+                    "total": 90.0,
+                    "product": null
+                }
+            ],
+            "totalPrice": 90.0,
+            "cash": true,
+            "paid": 90.0
+        },
+        "tax": null,
+        "totalTaxValue": 8.18,
+        "sdc": {
+            "time": "2022-11-17T18:31:51",
+            "invoiceNumber": "FM4CA6AK-FM4CA6AK-192805",
+            "invoiceCounter": "192798/192805ПП"
+        },
+        "user": {
+            "id": "1",
+            "created": "2022-11-28T12:41:55",
+            "password": "admin",
+            "birthDate": null,
+            "ethnicity": null,
+            "nationality": "Serbian",
+            "maritalStatus": "forever alone",
+            "salary": 0,
+            "male": true
+        },
+        "deleted": null,
+        "scanned": "2022-12-02T18:49:25",
+        "name": null,
+        "validUntil": null,
+        "url": "https://suf.purs.gov.rs/v/?vl=A0ZNNENBNkFLRk00Q0E2QUsl8QIAHvECAKC7DQAAAAAAAAABhIalm1gAAACwWyZlaDcQiExSbRnvp2sPlv K/wivUYpaQu7tNNh4Iyqw5iCHd1LGGpBJ XuTul49imCldnL xd8BJ6LgzjWLcWui84IPDvcW61DuBOUm86wtfQc /IXmdt w0c9gT4/saBYaj8aBYI8kW4fSwjckVGpoj8Xh1Ik KPyjPMeyOxxO3JusOcehxsGib8DcorAiJlWn7Lpr9rkIspCFa9dA0tD/n52b LaD9ehvq8kVutHft7sOt8u3 TK2MAyElxY1wpCERkqDc5YObfyPGPlyfWRPTF0Mp0k0s6WopsOSCAIa8OhY1Q31ygzZzUpAPOwWpontR6xJrFpRDdKG0KNTAuwhV1T/jRznOeFe sQ/9e1YWhBSIajrXta0WnWOQTC4 wExvUFsfNkVJCV5kE3cFOaMZWloG6s/MUKIwPdwRlkK01IMtETrQikQi8OROIc2Yyk83JkEBaCopC fREDUIH8VhLHhdnZffMh7lT8L1S1s BwwYZdPwj2EHvi/rl7OK5/9gXDBAHrFWGsCgjFoIHJ7wiGesCJSpldaEMTkyYPD0a2kcGNH1QkoRixwmWVscVOG9noFkhpzzJw4RF4LLlNl3EJVO3vaVrTAEAhGobFoNx39Zz53Hbiu gISBqSvDS qYONRUzmLRUPpKPMXI7uOZV uZAqA0Fpdibkc7ENQjM2tQl3wnUCktnoZJK8=",
+        "qrcode": null,
+        "warranty": false
+    }
+]

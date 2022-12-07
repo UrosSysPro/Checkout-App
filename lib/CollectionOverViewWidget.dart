@@ -1,5 +1,6 @@
-import 'package:check_out_app/receipt/ReceiptModel.dart';
-import 'package:check_out_app/receipt/ReceiptView.dart';
+import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:check_out_app/models/ReceiptModel.dart';
+import 'package:check_out_app/views/ReceiptView.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -15,6 +16,9 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   late final PageController scrollController;
   double scrollOffset=0;
   double pageViewFraction=0.5;
+  late FocusNode focusNode;
+  BorderRadius searchRadius=BorderRadius.circular(15);
+  EdgeInsets searchPadding=EdgeInsets.symmetric(horizontal: 50,vertical: 20);
  
   @override
   void initState() {
@@ -22,12 +26,17 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     super.initState();
     scrollController=PageController(viewportFraction: pageViewFraction);
     scrollController.addListener(_onScroll);
+    focusNode=FocusNode();
+    focusNode.addListener(_onFocusChange);
   }
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    scrollController.removeListener(_onScroll);
+    focusNode.removeListener(_onFocusChange);
     scrollController.dispose();
+    focusNode.dispose();
   }
 
   void _onScroll(){
@@ -35,6 +44,19 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     setState(() {
       scrollOffset=scrollController.offset;
       // print(scrollController.offset);
+    });
+  }
+  void _onFocusChange(){
+    setState(() {
+      if(!focusNode.hasFocus){
+        // print("true");
+        searchRadius=BorderRadius.circular(15);
+        searchPadding=EdgeInsets.symmetric(horizontal: 50,vertical: 20);
+      }else{
+        // print("false");
+        searchRadius=BorderRadius.circular(0);
+        searchPadding=EdgeInsets.all(0);
+      }  
     });
   }
   
@@ -57,17 +79,18 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     
     return PageView.builder(
       scrollDirection: Axis.horizontal,
+      physics: BouncingScrollPhysics(),
       itemCount: receipts.length,
       controller: scrollController,
       clipBehavior: Clip.none,
       itemBuilder: (context,index){
-         double scale=index*screenWidth-scrollOffset;
+        double scale=index*screenWidth-scrollOffset;
         scale=scale>0?scale:-scale;
         double translate=10-scale/10;
         scale/=800;
         scale=1.0-scale;
         scale=max(0, scale*0.9);
-        return ReceiptView(receipts[index],index,scrollController,translate,scale);
+        return ReceiptView(index,receipts[index],translate,scale,scrollController);
       }
     );
   } 
@@ -112,78 +135,11 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   }
   
   Widget search(){
-    return Padding(
-      padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 1),
-          child: SizedBox(
-            height: 40,
-            child: TextField(
-              style: TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: "🔍 Search",
-              ),
-            ),
-          ),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.black12
-        ),
-      ),
+    return ExpandableSearch(
+      padding: searchPadding,
+      radius: searchRadius,
+      focusNode: focusNode,
     );
   }
 
-}
-
-class ReceiptListItem extends StatelessWidget {
-  final Color color;
-  final double scale;
-  final double translate;
-  final PageController controller;
-  final int id;
-  const ReceiptListItem(this.color,this.scale,this.translate,this.controller,this.id,{ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        controller.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
-      },
-      child: Transform.translate(
-        offset: Offset(0,translate),
-        child: Transform.scale(
-          scale: scale,
-          child: Container(
-            clipBehavior: Clip.none,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Transform.translate(
-                offset: Offset(0,-25),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff515151)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlutterLogo(size: 50),
-                  ),
-                )
-              ),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: color,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

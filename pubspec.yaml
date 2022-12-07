@@ -39,6 +39,7 @@ dependencies:
   qr_flutter: ^4.0.0
   animated_bottom_navigation_bar: ^1.1.0
   mobile_scanner: ^2.1.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
