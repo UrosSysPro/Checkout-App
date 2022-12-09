@@ -1,97 +1,112 @@
-import 'package:check_out_app/DynamSoftCamera.dart';
 import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter/material.dart';
-// import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-
-
-class CameraReaderWidget extends StatefulWidget {
-  const CameraReaderWidget({ Key? key }) : super(key: key);
+class DynamSoftCamera extends StatefulWidget {
+  Function onScan;
+  DynamSoftCamera(this.onScan,{ Key? key }) : super(key: key);
 
   @override
-  State<CameraReaderWidget> createState() => _CameraReaderWidgetState();
+  _DynamSoftCameraState createState() => _DynamSoftCameraState();
 }
 
-class _CameraReaderWidgetState extends State<CameraReaderWidget> {
-  // var cameraController=MobileScannerController(torchEnabled: false);
-  var popUpOpened=false;
+class _DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObserver {
+  late final DCVBarcodeReader _barcodeReader;
+  late final DCVCameraEnhancer _cameraEnhancer;
+  final DCVCameraView _cameraView = DCVCameraView();
+  bool popUpOpened=false;
 
+  List<BarcodeResult> decodeRes = [];
+  String? resultText;
+  String? base64ResultText;
+  bool faceLens = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+    _sdkInit();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    _cameraEnhancer.close();
+    _barcodeReader.stopScanning();
+    super.dispose();
+  }
+
+  void _sdkInit() async {
+    // Create a barcode reader instance.
+    _barcodeReader = await DCVBarcodeReader.createInstance();
+    _cameraEnhancer = await DCVCameraEnhancer.createInstance();
+    // Get the current runtime settings of the barcode reader.
+    DBRRuntimeSettings currentSettings =
+        await _barcodeReader.getRuntimeSettings();
+    currentSettings.barcodeFormatIds = EnumBarcodeFormat.BF_QR_CODE;
+    // currentSettings.minResultConfidence = 70;
+    // currentSettings.minBarcodeTextLength = 50;
+    currentSettings.expectedBarcodeCount = 0;
+    await _barcodeReader.updateRuntimeSettings(currentSettings);
+    _cameraEnhancer.setScanRegion(Region(
+        regionTop: 0,
+        regionLeft: 0,
+        regionBottom: 100,
+        regionRight: 100,
+        regionMeasuredByPercentage: 1));
+
+    await _barcodeReader.enableResultVerification(true);
+
+    _barcodeReader.receiveResultStream().listen((List<BarcodeResult>? res) {
+      if (mounted&&popUpOpened==false&&res!=null) {
+        showAddReceiptPopUp(res[0].barcodeText);
+      }
+    });
+
+    await _cameraEnhancer.open();
+
+    _barcodeReader.startScanning();
+  }
+
+  /// Get listItem
+  Widget listItem(BuildContext context, int index) {
+    BarcodeResult res = decodeRes[index];
+
+    return ListTileTheme(
+        textColor: Colors.white,
+        // tileColor: Colors.green,
+        child: ListTile(
+          title: Text(res.barcodeFormatString),
+          subtitle: Text(res.barcodeText),
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // MobileScanner(
-        //   fit: BoxFit.cover,
-        //   allowDuplicates: true,
-        //   controller:cameraController,
-        //   onDetect: (barCode,args){
-        //     if(barCode.rawValue==null){
-        //       if(!popUpOpened){
-        //         incorrectQrCode();
-        //       }
-        //     }else{
-        //       if(!popUpOpened) {
-        //         showAddReceiptPopUp(barCode.rawValue!);
-        //       }
-        //     }
-        //   },
-        // ),
-        DynamSoftCamera(showAddReceiptPopUp),
-        
-        Center(
-          child: SizedBox(
-            width: 300,
-            height: 300,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black26,
-                  width: 5
-                ),
-                borderRadius: BorderRadius.circular(35)
-              ),
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.white
-              ),
-              child: IconButton(
-                iconSize: 50,
-                color: Colors.orange[900],
-                icon:const Icon(Icons.bolt_outlined),
-                onPressed: (){
-                  // cameraController.toggleTorch();
-                },
-              ),
-            ),
-          ),
-        )
-      ],
-    );
+    return _cameraView;
   }
 
-  void incorrectQrCode(){
-    popUpOpened=true;
-    var res=showDialog(context: context, builder: (context){
-      return AlertDialog(
-        title: const Text("Ne Radi:("),
-        actions: [
-          ElevatedButton(onPressed: (){Navigator.pop(context);}, child: const Text("jbg"))
-        ],
-      );
-    });
-    res.whenComplete(() => popUpOpened=false);
+  
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _barcodeReader.startScanning();
+        _cameraEnhancer.open();
+        break;
+      case AppLifecycleState.inactive:
+        _cameraEnhancer.close();
+        _barcodeReader.stopScanning();
+        break;
+      default:
+        break;
+    }
   }
+
 
   void showAddReceiptPopUp(String value){
     popUpOpened=true;
@@ -135,6 +150,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
     res.whenComplete(() {
       popUpOpened=false;
     });
+
   }
   Widget closeButton(BuildContext context){
     return Align(
