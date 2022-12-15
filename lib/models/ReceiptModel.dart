@@ -23,6 +23,7 @@ class ReceiptModel{
   String validUntil;
   String url;
   bool warranty;
+  String text="";
   ReceiptModel(
     this.id,
     this.placeOfPurchase,

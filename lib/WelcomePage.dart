@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:check_out_app/FourCornerRectangle.dart';
 import 'package:check_out_app/MainPage.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
+import 'package:check_out_app/models/ReceiptText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -94,8 +95,11 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
 
   void loadReceipts(Future<List> jsonData) async{
     List l=await jsonData;
-    for(var jsonReceipt in l){
-      receipts.add(ReceiptModel.fromJson(jsonReceipt));
+    for(int i=0;i<l.length;i++){
+      var jsonReceipt=l[i];
+      ReceiptModel receipt=ReceiptModel.fromJson(jsonReceipt);
+      receipt.text=texts[i];
+      receipts.add(receipt);
     }
     // for(ReceiptModel r in receipts){
     //   r.printReceipt();

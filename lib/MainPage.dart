@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:check_out_app/CameraReaderWidget.dart';
 import 'package:check_out_app/CollectionOverViewWidget.dart';
 import 'package:check_out_app/CuponPage.dart';
+import 'package:check_out_app/LoyalityCardsPage.dart';
 import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,9 +54,23 @@ class _MainPageState extends State<MainPage> {
         Widget child=Container(color: Colors.red,);
         if(_selectedIndex==0)child=CollectionOverViewWidget();
         if(_selectedIndex==1)child=CameraReaderWidget();
-        if(_selectedIndex==2)child=CuponPage();
+        // if(_selectedIndex==2)child=CuponPage();
+        if(_selectedIndex==2)child=LoyalityCardsPage();
 
-        return child;
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            Opacity(
+              opacity: 0.1,
+              child: Image(
+                image: AssetImage("assets/background.webp"),
+                // fit: BoxFit.fitWidth,
+                repeat: ImageRepeat.repeat,
+              ),
+            ),
+            child
+          ],
+        );
       }),
 
       // floatingActionButton: FloatingActionButton(
@@ -91,11 +106,15 @@ class _MainPageState extends State<MainPage> {
               color: _selectedIndex==1?Colors.green:Colors.black54,
             )
           ),
+          // BottomNavigationBarItem(
+          //   label: "Popusti",
+          //   icon: SvgPicture.asset("assets/cupons.svg",
+          //     color: _selectedIndex==2?Colors.green:Colors.black54,
+          //   )
+          // ),
           BottomNavigationBarItem(
-            label: "Popusti",
-            icon: SvgPicture.asset("assets/cupons.svg",
-              color: _selectedIndex==2?Colors.green:Colors.black54,
-            )
+            label: "Kartice",
+            icon: Icon(Icons.card_giftcard,size: 40,)
           ),
         ],
         onTap: _onTap,

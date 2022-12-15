@@ -15,7 +15,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   
   late final PageController scrollController;
   double scrollOffset=0;
-  double pageViewFraction=0.5;
+  double pageViewFraction=0.6;
   late FocusNode focusNode;
   BorderRadius searchRadius=BorderRadius.circular(15);
   EdgeInsets searchPadding=EdgeInsets.symmetric(horizontal: 50,vertical: 20);
@@ -92,8 +92,8 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
       itemBuilder: (context,index){
         double scale=index*screenWidth-scrollOffset;
         scale=scale>0?scale:-scale;
-        double translate=10-scale/10;
-        scale/=800;
+        double translate=10-scale/20;
+        scale/=1100;
         scale=1.0-scale;
         scale=max(0, scale*0.9);
         return ReceiptView(index,receipts[index],translate,scale,scrollController,selectedReceipt);
@@ -108,12 +108,12 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     String valuta="RSD";
     String imeRacuna=receipts[selectedReceipt].name;
 
-    if(prodavnica.length>10){
-      prodavnica=prodavnica.substring(0,10)+"...";
-    }
+    // if(prodavnica.length>10){
+    //   prodavnica=prodavnica.substring(0,10)+"...";
+    // }
 
     FontWeight weight=FontWeight.bold;
-    double fontSize=20;
+    double fontSize=18;
     var decorationDark=TextStyle(
       fontSize: fontSize,
       color: Colors.black,
@@ -122,18 +122,31 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     var decorationGray=TextStyle(
       fontWeight: weight,
       fontSize: fontSize,
-      color: Colors.black54
+      color: Colors.black54,
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 5,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(prodavnica,style: decorationGray,),
-            SizedBox(width: 5,),
-            Text(datum.substring(0,10),style: decorationDark,)],
+        SizedBox(
+          height: 50,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 150,
+                child: Text(
+                  prodavnica,
+                  style: decorationGray,
+                  maxLines: 2,
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                )
+              ),
+              SizedBox(width: 5,),
+              Text(datum.substring(0,10),style: decorationDark,)],
+          ),
         ),
         SizedBox(height: 5,),
         Row(

@@ -126,8 +126,8 @@ class _DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingOb
                         children: [
                           closeButton(context),
                           receiptTitle("Maxi"),
-                          // qrCode(value),
-                          Text(value),
+                          qrCode(value),
+                          // Text(value),
                           const SizedBox(height: 20,),
                           nameEdit(),
                           const SizedBox(height: 20,),
@@ -187,7 +187,7 @@ class _DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingOb
     );
   }
   Widget nameEdit(){
-    return ExpandableSearch(radius: BorderRadius.circular(15),);
+    return ExpandableSearch(radius: BorderRadius.circular(15),hint: "Ime racuna",);
   }
   Widget addReceiptButton(BuildContext context){
     return ElevatedButton(

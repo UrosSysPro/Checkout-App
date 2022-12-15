@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:check_out_app/EditReceiptPage.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ class ReceiptView extends StatelessWidget {
     this.controller,
     this.selectedReceipt,{ Key? key }
   ) : super(key: key){
-    receiptAsString=model.printReceipt();
+    receiptAsString=model.text;
   }
 
   
@@ -74,8 +76,14 @@ class ReceiptView extends StatelessWidget {
         padding: EdgeInsets.all(8),
         children:[
           Text(string,
+          textAlign: TextAlign.left,
             style: TextStyle(
-              fontSize: 9
+              
+              fontSize: 8,
+              fontFamily: "monospace",
+              fontFeatures: [
+                FontFeature.tabularFigures()
+              ]
             ),
           ),
           Image(
@@ -93,20 +101,30 @@ class ReceiptView extends StatelessWidget {
     );
   }
   Widget logo(){
+    late Widget logo;
+    if(model.placeOfPurchase.business.logo.isNotEmpty){
+      logo=ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          color: Color(0xff777777),
+          child: SizedBox(
+            width: 60,
+            height: 60,
+            child: Image(
+              image: AssetImage(model.placeOfPurchase.business.logo),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+    }else{
+      logo=FlutterLogo(size: 50,);
+    }
     return  Align(
       alignment: Alignment.topCenter,
       child: Transform.translate(
         offset: Offset(0,-25),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xff515151)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FlutterLogo(size: 50),
-          ),
-        )
+        child: logo
       ),
     );
   }

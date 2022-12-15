@@ -4,7 +4,9 @@ class ExpandableSearch extends StatelessWidget {
   EdgeInsets? padding;
   BorderRadius? radius;
   FocusNode? focusNode;
-  ExpandableSearch({ Key? key,this.padding,this.radius,this.focusNode }) : super(key: key);
+  String? hint;
+  String? value;
+  ExpandableSearch({ Key? key,this.value,this.padding,this.radius,this.focusNode,this.hint }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +18,23 @@ class ExpandableSearch extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 1),
           child: SizedBox(
             height: 40,
-            child: TextField(
+            child: TextFormField(
+              initialValue: value??"",
               focusNode: focusNode,
               style: TextStyle(
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: "🔍 Search",
+                  
+                  hintText: hint??"🔍 Search",
               ),
             ),
           ),
         ),
         decoration: BoxDecoration(
           borderRadius: radius??BorderRadius.circular(0),
-          color: Colors.black12
+          color: Color(0xffdddddd)
         ),
       ),
     );

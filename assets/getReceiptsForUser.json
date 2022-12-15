@@ -6,7 +6,7 @@
             "business": {
                 "id": 1,
                 "name": "DELHAIZE SERBIA",
-                "logo": null,
+                "logo": "assets/shopandgo.png",
                 "tin": 103482850
             },
             "name": "6217 Stari Đeram",
@@ -118,7 +118,7 @@
             "business": {
                 "id": 1,
                 "name": "DELHAIZE SERBIA",
-                "logo": null,
+                "logo": "assets/shopandgo.png",
                 "tin": 103482850
             },
             "name": "102-Maxi",
@@ -185,7 +185,7 @@
             "business": {
                 "id": 2,
                 "name": "BAS",
-                "logo": null,
+                "logo": "assets/bas.jpg",
                 "tin": 100000694
             },
             "name": "Киоск 4",
@@ -251,8 +251,8 @@
             "id": 4,
             "business": {
                 "id": 3,
-                "name": "IVAN RALINOVSKI PREDUZETNIK KOKTEL BAR KONJARNIK BEOGRAD (ZVEZDARA)",
-                "logo": null,
+                "name": "DELHAIZE SERBIA",
+                "logo": "assets/shopandgo.png",
                 "tin": 106007073
             },
             "name": "Бар Коњарник",
@@ -328,7 +328,7 @@
             "business": {
                 "id": 4,
                 "name": "DOO VIVA TREF BEOGRAD (PALILULA)",
-                "logo": null,
+                "logo": "assets/tref.png",
                 "tin": 103891308
             },
             "name": "КОНЧАР",
@@ -394,8 +394,8 @@
             "id": 6,
             "business": {
                 "id": 5,
-                "name": "JOVANOVIĆ M",
-                "logo": null,
+                "name": "Extra Sport",
+                "logo": "assets/extrasport.png",
                 "tin": 107413083
             },
             "name": " МАЛОПРОДАЈНИ ОБЈЕКАТ ДРАГИЦЕ КОНЧАР",
