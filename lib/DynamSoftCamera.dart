@@ -1,3 +1,4 @@
+import 'package:check_out_app/CameraReaderWidget.dart';
 import 'package:check_out_app/ExpandableSearch.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,10 @@ class DynamSoftCamera extends StatefulWidget {
   DynamSoftCamera(this.onScan,{ Key? key }) : super(key: key);
 
   @override
-  _DynamSoftCameraState createState() => _DynamSoftCameraState();
+  DynamSoftCameraState createState() => DynamSoftCameraState();
 }
 
-class _DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObserver {
+class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObserver {
   late final DCVBarcodeReader _barcodeReader;
   late final DCVCameraEnhancer _cameraEnhancer;
   final DCVCameraView _cameraView = DCVCameraView();
@@ -21,17 +22,18 @@ class _DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingOb
   String? resultText;
   String? base64ResultText;
   bool faceLens = false;
+  bool isTorchOn=false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     _sdkInit();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _cameraEnhancer.close();
     _barcodeReader.stopScanning();
     super.dispose();
@@ -107,6 +109,14 @@ class _DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingOb
     }
   }
 
+  void toggleTorch(){
+    isTorchOn=!isTorchOn;
+    if(isTorchOn){
+      _cameraEnhancer.turnOnTorch();
+    }else{
+      _cameraEnhancer.turnOffTorch();
+    }
+  }
 
   void showAddReceiptPopUp(String value){
     popUpOpened=true;

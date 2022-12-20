@@ -60,71 +60,74 @@ class _LoyalityCardsPageState extends State<LoyalityCardsPage> {
       "Extra Sport"
     ];
     double cardHeight=220;
-    double stop=00;
     
     List<Widget> widgets=[];
     for(int i=0;i<kartice.length;i++){
-      double pos=i*cardHeight-offset-stop;
+      double pos=i*cardHeight-offset;
       double offsetY=0;
-      if(pos<0){
-        offsetY=-pos/1.2;
-        
-      }
+      if(pos<0)offsetY=-pos;
       int index=i;
+      double scale=(cardHeight-offsetY)/cardHeight;
+      offsetY-=(1-scale)*cardHeight/2;
+      scale=1;
+      offsetY=0;
       widgets.add(Transform.translate(
-        offset: Offset(0,0),
+        offset: Offset(0,offsetY),
         child: SizedBox(
           height: cardHeight,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom:20.0),
-            child: Container(
-              clipBehavior: Clip.antiAlias,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image(
-                    image: AssetImage(kartice[index]),
-                    fit: BoxFit.cover,
-                  ),
-                  
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ClipRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                          sigmaX: 5,
-                          sigmaY: 5,
-                      ),
-                      child:Container(
-                        width: 1000,
-                        padding: EdgeInsets.only(top: 10,left: 10),
-                        child: Text(imena[index],
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold  
+          child: Transform.scale(
+            scale: scale,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom:20.0),
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image(
+                      image: AssetImage(kartice[index]),
+                      fit: BoxFit.cover,
+                    ),
+                    
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 5,
+                            sigmaY: 5,
+                        ),
+                        child:Container(
+                          width: 1000,
+                          padding: EdgeInsets.only(top: 10,left: 10),
+                          child: Text(imena[index],
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold  
+                            ),
+                          ),
+                          height: 70,
+                          decoration:BoxDecoration (
+                            color: Colors.white24
                           ),
                         ),
-                        height: 70,
-                        decoration:BoxDecoration (
-                          color: Colors.white24
-                        ),
                       ),
-                    ),
+                    )
                   )
-                )
-                ],
-              ),
-              // height: 200,
-              decoration: BoxDecoration(
-                // color: colors[i],
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black38,
-                    blurRadius: 4,
-                    offset: Offset(0,3)
-                  )
-                ]
+                  ],
+                ),
+                // height: 200,
+                decoration: BoxDecoration(
+                  // color: colors[i],
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 4,
+                      offset: Offset(0,3)
+                    )
+                  ]
+                ),
               ),
             ),
           ),

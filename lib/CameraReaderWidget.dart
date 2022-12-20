@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:check_out_app/DynamSoftCamera.dart';
 import 'package:check_out_app/ExpandableSearch.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class CameraReaderWidget extends StatefulWidget {
 class _CameraReaderWidgetState extends State<CameraReaderWidget> {
   // var cameraController=MobileScannerController(torchEnabled: false);
   var popUpOpened=false;
+  var cameraKey=GlobalKey<DynamSoftCameraState>();
 
 
   @override
@@ -39,7 +42,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
         //     }
         //   },
         // ),
-        DynamSoftCamera(showAddReceiptPopUp),
+        DynamSoftCamera(showAddReceiptPopUp,key:cameraKey,),
         
         Center(
           child: SizedBox(
@@ -65,14 +68,7 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
                 borderRadius: BorderRadius.circular(50),
                 color: Colors.white
               ),
-              child: IconButton(
-                iconSize: 50,
-                color: Colors.orange[900],
-                icon:const Icon(Icons.bolt_outlined),
-                onPressed: (){
-                  // cameraController.toggleTorch();
-                },
-              ),
+              child: toggleFlashButton()
             ),
           ),
         )
@@ -182,5 +178,27 @@ class _CameraReaderWidgetState extends State<CameraReaderWidget> {
         child: Center(child: Text("Dodaj")),
       )
     );
+  }
+  Widget toggleFlashButton(){
+    return StatefulBuilder(builder: (context,setState){
+      return  IconButton(
+        iconSize: 50,
+        color: Colors.orange[900],
+        icon:Builder(builder: (context){
+          var icon=Icon(Icons.flash_off_sharp);
+          if(cameraKey.currentState!=null){
+            if(cameraKey.currentState!.isTorchOn){
+              icon=Icon(Icons.flash_on_sharp);
+            }
+          }
+          return icon;
+        },),
+        onPressed: (){
+          setState((){
+            cameraKey.currentState?.toggleTorch();
+          });
+        },
+      );
+    });
   }
 }
