@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:check_out_app/FourCornerRectangle.dart';
 import 'package:check_out_app/MainPage.dart';
+import 'package:check_out_app/RestApi.dart';
+import 'package:check_out_app/main.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:check_out_app/models/ReceiptText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -19,13 +22,16 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
 
+  
+
   late AnimationController controller;
 
   @override
   void initState(){
     // TODO: implement initState
     super.initState();
-    controller=new AnimationController(vsync: this,duration: Duration(seconds: 1));
+
+    controller=new AnimationController(vsync: this,duration: Duration(milliseconds: 200));
     controller.addStatusListener((status) {
       if(status==AnimationStatus.completed){
         Navigator.pushReplacement(context, 
@@ -36,8 +42,11 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
       }
     });
     controller.forward();
-    var jsonData= loadJson("assets/getReceiptsForUser.json");
-    loadReceipts(jsonData);
+    loadUser().whenComplete(
+      () => loadReceipts().whenComplete(
+        () => controller.forward()
+      )
+    );
   }
 
 
@@ -45,7 +54,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    controller.dispose();
+    // controller.dispose();
   }
 
   @override
@@ -85,24 +94,5 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
         )
       ]
     );
-  }
-
-  Future<List> loadJson(String fileName) async{
-      var jsonText = await rootBundle.loadString(fileName);
-      List jsonData=json.decode(jsonText);
-      return jsonData;
-  }
-
-  void loadReceipts(Future<List> jsonData) async{
-    List l=await jsonData;
-    for(int i=0;i<l.length;i++){
-      var jsonReceipt=l[i];
-      ReceiptModel receipt=ReceiptModel.fromJson(jsonReceipt);
-      receipt.text=texts[i];
-      receipts.add(receipt);
-    }
-    // for(ReceiptModel r in receipts){
-    //   r.printReceipt();
-    // }
   }
 }

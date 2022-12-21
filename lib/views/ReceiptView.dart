@@ -20,7 +20,7 @@ class ReceiptView extends StatelessWidget {
     this.controller,
     this.selectedReceipt,{ Key? key }
   ) : super(key: key){
-    receiptAsString=model.text;
+    receiptAsString=model.printReceipt();
   }
 
   

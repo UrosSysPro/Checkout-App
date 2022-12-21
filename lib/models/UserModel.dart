@@ -1,5 +1,5 @@
 class UserModel{
-  int id;
+  String id;
   String created;
   String password;
   String birthDate;
@@ -21,15 +21,15 @@ class UserModel{
     this.male
   );
   static UserModel fromJson(dynamic u){
-    int id=int.parse(u["id"]);
-    String created=u["created"];
-    String password=u["password"];
+    String id=u["id"]??"nemmaaaaa";
+    String created=u["created"]??"neammmaa";
+    String password=u["password"]??"ne postoji password";
     String birthDate=u["dirthDate"]??"neki datum";
     String ethnicity=u["ethnicity"]??"neki etnisiti";
-    String nationality=u["nationality"];
-    String maritalStatus=u["maritalStatus"];
+    String nationality=u["nationality"]??"ne postoji nationality";
+    String maritalStatus=u["maritalStatus"]??"nema";
     double salary=0;
-    bool male=u["male"];
+    bool male=u["male"]??true;
     return UserModel(
       id,
       created,

@@ -11,7 +11,7 @@ class EditReceiptPage extends StatefulWidget {
   final ReceiptModel model;
   late final String receiptAsString;
   EditReceiptPage({ Key? key,required this.model }) : super(key: key){
-    receiptAsString=model.text;
+    receiptAsString=model.printReceipt();
   }
 
   @override

@@ -1,12 +1,12 @@
 import 'package:check_out_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'dart:developer';
-
 
 void main() async {
 //     // WidgetsFlutterBinding.ensureInitialized();

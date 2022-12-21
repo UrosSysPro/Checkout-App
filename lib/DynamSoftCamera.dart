@@ -1,12 +1,13 @@
+import 'package:check_out_app/AddReceiptPopUp.dart';
 import 'package:check_out_app/CameraReaderWidget.dart';
 import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:check_out_app/RestApi.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DynamSoftCamera extends StatefulWidget {
-  Function onScan;
-  DynamSoftCamera(this.onScan,{ Key? key }) : super(key: key);
+  DynamSoftCamera({ Key? key }) : super(key: key);
 
   @override
   DynamSoftCameraState createState() => DynamSoftCameraState();
@@ -128,29 +129,7 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
           children: [
             StatefulBuilder(
               builder: (context,setState) {
-                double padding=MediaQuery.of(context).viewInsets.bottom;
-                return Padding(padding: EdgeInsets.only(top:8,left: 8,right: 8,bottom: padding),
-                  child: Container(
-                    child: Padding(padding: const EdgeInsets.all(15),
-                      child: Column(
-                        children: [
-                          closeButton(context),
-                          receiptTitle("Maxi"),
-                          qrCode(value),
-                          // Text(value),
-                          const SizedBox(height: 20,),
-                          nameEdit(),
-                          const SizedBox(height: 20,),
-                          addReceiptButton(context)
-                        ],
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                  ),
-                );
+                return AddReceiptPopUp(receiptUrl: value);
               }
             ),
           ],
@@ -159,6 +138,7 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
     );
     res.whenComplete(() {
       popUpOpened=false;
+      loadReceipts();
     });
 
   }

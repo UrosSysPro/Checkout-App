@@ -76,6 +76,12 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
 
   
   Widget receiptsList(){
+    if(receipts.isEmpty){
+      return const Center(
+        child: Text("Nema nista"),
+      );
+    }
+
     double screenWidth=MediaQuery.of(context).size.width*pageViewFraction;
     
     return PageView.builder(
@@ -102,6 +108,9 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   } 
 
   Widget info(){
+    if(receipts.isEmpty){
+      return Container(height: 0,);
+    }
     String prodavnica=receipts[selectedReceipt].placeOfPurchase.business.name;
     String datum=receipts[selectedReceipt].scanned;
     double total=receipts[selectedReceipt].totalPrice;
@@ -164,6 +173,9 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   }
   
   Widget search(){
+    if(receipts.isEmpty){
+      return Container(height: 0,);
+    }
     return ExpandableSearch(
       padding: searchPadding,
       radius: searchRadius,
