@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:check_out_app/AddReceiptPopUp.dart';
-import 'package:check_out_app/DynamSoftCamera.dart';
-import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:check_out_app/customWidgets/AddReceiptPopUp.dart';
+import 'package:check_out_app/customWidgets/DynamSoftCamera.dart';
+import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:flutter/material.dart';
 // import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';

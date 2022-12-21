@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:check_out_app/EditReceiptPage.dart';
+import 'package:check_out_app/pages/EditReceiptPage.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -102,24 +102,22 @@ class ReceiptView extends StatelessWidget {
   }
   Widget logo(){
     late Widget logo;
-    if(model.placeOfPurchase.business.logo.isNotEmpty){
-      logo=ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          color: Color(0xff777777),
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: Image(
-              image: AssetImage(model.placeOfPurchase.business.logo),
-              fit: BoxFit.cover,
-            ),
-          ),
+    bool hasLogo=model.placeOfPurchase.business.logo.isNotEmpty;
+    
+    logo=ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        color: Color(0xff777777),
+        child: SizedBox(
+          width: 60,
+          height: 60,
+          child: hasLogo?Image(
+            image: NetworkImage(model.placeOfPurchase.business.logo),
+            fit: BoxFit.cover,
+          ):FlutterLogo(),
         ),
-      );
-    }else{
-      logo=FlutterLogo(size: 50,);
-    }
+      ),
+    );
     return  Align(
       alignment: Alignment.topCenter,
       child: Transform.translate(

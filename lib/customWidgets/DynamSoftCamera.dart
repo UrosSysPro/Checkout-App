@@ -1,6 +1,6 @@
-import 'package:check_out_app/AddReceiptPopUp.dart';
-import 'package:check_out_app/CameraReaderWidget.dart';
-import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:check_out_app/customWidgets/AddReceiptPopUp.dart';
+import 'package:check_out_app/customWidgets/CameraReaderWidget.dart';
+import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:check_out_app/RestApi.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter/material.dart';

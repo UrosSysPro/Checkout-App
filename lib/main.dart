@@ -1,4 +1,4 @@
-import 'package:check_out_app/WelcomePage.dart';
+import 'package:check_out_app/pages/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

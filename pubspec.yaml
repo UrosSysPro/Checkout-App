@@ -43,6 +43,7 @@ dependencies:
   dynamsoft_capture_vision_flutter: ^1.2.0
   flutter_secure_storage: ^7.0.1
   http: ^0.13.5
+  loading_animation_widget: ^1.2.0+4
 
 dev_dependencies:
   flutter_test:

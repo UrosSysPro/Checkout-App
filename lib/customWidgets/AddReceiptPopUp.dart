@@ -1,7 +1,7 @@
 
 import 'dart:async';
 
-import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:check_out_app/RestApi.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';

@@ -1,9 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:check_out_app/CameraReaderWidget.dart';
-import 'package:check_out_app/CollectionOverViewWidget.dart';
-import 'package:check_out_app/CuponPage.dart';
-import 'package:check_out_app/LoyalityCardsPage.dart';
-import 'package:check_out_app/WelcomePage.dart';
+import 'package:check_out_app/customWidgets/CameraReaderWidget.dart';
+import 'package:check_out_app/customWidgets/CollectionOverViewWidget.dart';
+import 'package:check_out_app/customWidgets/CuponPage.dart';
+import 'package:check_out_app/customWidgets/LoyalityCardsPage.dart';
+import 'package:check_out_app/pages/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

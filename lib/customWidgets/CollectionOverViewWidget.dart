@@ -1,4 +1,4 @@
-import 'package:check_out_app/ExpandableSearch.dart';
+import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:check_out_app/views/ReceiptView.dart';
 import 'package:flutter/material.dart';

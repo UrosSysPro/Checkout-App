@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:check_out_app/FourCornerRectangle.dart';
-import 'package:check_out_app/MainPage.dart';
+import 'package:check_out_app/customWidgets/FourCornerRectangle.dart';
+import 'package:check_out_app/pages/MainPage.dart';
 import 'package:check_out_app/RestApi.dart';
 import 'package:check_out_app/main.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
-import 'package:check_out_app/models/ReceiptText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
