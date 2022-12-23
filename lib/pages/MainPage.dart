@@ -55,9 +55,9 @@ class _MainPageState extends State<MainPage> {
         if(_selectedIndex==1)child=CameraReaderWidget();
         // if(_selectedIndex==2)child=CuponPage();
         if(_selectedIndex==2)child=LoyalityCardsPage();
-        if(!imaInterneta){
-          child=NoWiFiPage();
-        }
+        // if(!imaInterneta){
+        //   child=NoWiFiPage();
+        // }
         return Stack(
           fit: StackFit.expand,
           children: [
