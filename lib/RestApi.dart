@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 UserModel? user;
 FlutterSecureStorage? storage;
+bool imaInterneta=true;
 
 const url="checkoutbackend.azurewebsites.net";
 const api="api/v1";
@@ -23,16 +24,17 @@ Future<void> loadUser() async{
   if(userString==null){
     var requestUrl=Uri.https(url,"$api/users");
     var response=await http.post(requestUrl);
-    userString=response.body;
-    await storage?.write(key: "user", value: userString);
-    print("created new user");
+    if(response.statusCode==200){
+      imaInterneta=true;
+      userString=response.body;
+      await storage?.write(key: "user", value: userString);
+    }else{
+      imaInterneta=false;
+    }
   }else{
-    print("logged in");
+    user=UserModel.fromJson(jsonDecode(userString));
   }
-
-  print(userString);
-
-  user=UserModel.fromJson(jsonDecode(userString));
+  await ping();
 }
 
 Future<void> loadReceipts() async{
@@ -44,21 +46,27 @@ Future<void> loadReceipts() async{
 
   var params={
     "page":"0",
-    "limit":"10"
+    "limit":"100"
   };
   var resquestUrl=Uri.https(url,"$api/receipts",params);
   var headers={
     "userId":user!.id
   };
   var response=await http.get(resquestUrl,headers:headers,);
-  print(response.body);
-  List jsonList=jsonDecode(response.body);
+  if(response.statusCode==200){
+    imaInterneta=true;
+    print(response.body);
+    List jsonList=jsonDecode(response.body);
 
   // String jsonString=await rootBundle.loadString("assets/getReceiptsForUser.json");
   // jsonList=jsonDecode(jsonString);
-  for(int i=0;i<jsonList.length;i++){
-    receipts.add(ReceiptModel.fromJson(jsonList[i]));
+    for(int i=0;i<jsonList.length;i++){
+      receipts.add(ReceiptModel.fromJson(jsonList[i]));
+    }
+  }else{
+    imaInterneta=false;
   }
+  
 }
 
 Future<int> addReceipt(String receiptUrl) async{
@@ -76,6 +84,27 @@ Future<int> addReceipt(String receiptUrl) async{
   };
   print(headers["userId"]);
   var response=await http.post(requestUrl,headers: headers);
+  imaInterneta=response.statusCode==200;
   print(response.statusCode);
   return response.statusCode;
+}
+
+Future<int> updateReceipt(int id,String name)async{
+  var requestUrl=Uri.https(url,"$api/receipts");
+  var requestBody={
+    "id": id,
+    "warranty": true,
+    "name": name,
+    "validUntil": "2023-12-25"
+  };
+  var response=await http.put(requestUrl,body: requestBody);
+  imaInterneta=response.statusCode==200;
+  return response.statusCode;
+}
+
+Future<int> ping()async{
+
+  var ping=await http.get(Uri.https(url,"/$api/users"));
+  imaInterneta=ping.statusCode==200;
+  return ping.statusCode;
 }

@@ -18,46 +18,39 @@ class AddReceiptPopUp extends StatefulWidget {
 class _AddReceiptPopUpState extends State<AddReceiptPopUp> {
   String receiptName="";
 
-  late Future<int> status;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    status=addReceipt(widget.receiptUrl).then(responseArrived);
   }
 
   @override
   Widget build(BuildContext context) {
     double padding=MediaQuery.of(context).viewInsets.bottom;
-    return FutureBuilder(
-      future: status,
-      builder: (context,AsyncSnapshot<int> snapshot) {
-        Widget mainContent= Padding(padding: EdgeInsets.only(top:8,left: 8,right: 8,bottom: padding),
-          child: Container(
-            child: Padding(padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  closeButton(context),
-                  receiptTitle("Racun"),
-                  qrCode(widget.receiptUrl),
-                  // Text(widget.receiptUrl),
-                  const SizedBox(height: 20,),
-                  nameEdit(),
-                  const SizedBox(height: 20,),
-                  addReceiptButton(context,snapshot.hasData)
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20)
-            ),
-          ),
-        );
 
-        return mainContent;
-      }
+    Widget mainContent= Padding(padding: EdgeInsets.only(top:8,left: 8,right: 8,bottom: padding),
+      child: Container(
+        child: Padding(padding: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              closeButton(context),
+              receiptTitle("Racun"),
+              qrCode(widget.receiptUrl),
+              // Text(widget.receiptUrl),
+              const SizedBox(height: 20,),
+              nameEdit(),
+              const SizedBox(height: 20,),
+              addReceiptButton(context)
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20)
+        ),
+      ),
     );
+    return mainContent;
   }
 
   Widget closeButton(BuildContext context){
@@ -121,11 +114,12 @@ class _AddReceiptPopUpState extends State<AddReceiptPopUp> {
       ),
     );
   }
-  Widget addReceiptButton(BuildContext context,bool hasData){
+  Widget addReceiptButton(BuildContext context){
     return ElevatedButton(
-      onPressed: hasData?()async{
+      onPressed:(){
+        //promeniti ime racuna
         Navigator.of(context).pop();
-      }:null,
+      },
       child: const SizedBox(
         width: 10000,
         height: 40,
@@ -133,21 +127,5 @@ class _AddReceiptPopUpState extends State<AddReceiptPopUp> {
       ),
       
     );
-  }
-  void showMessageBox(BuildContext context,String message){
-    showDialog(context: context,builder: (context){
-      return AlertDialog(
-        title: Text(message),
-        actions: [ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("ok"))],
-      );
-    }).whenComplete(() => Navigator.pop(context));
-  }
-  FutureOr<int> responseArrived(int status){
-    if(status==409){
-      showMessageBox(context, "neko je vec skenirao ovaj racun");
-    }else if(status!=200){
-      showMessageBox(context, "eror $status");
-    }
-    return status;
   }
 }

@@ -78,7 +78,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   Widget receiptsList(){
     if(receipts.isEmpty){
       return const Center(
-        child: Text("Nema nista"),
+        child: Text("Nema sacuvanih racuna"),
       );
     }
 

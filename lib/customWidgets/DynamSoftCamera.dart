@@ -4,6 +4,7 @@ import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:check_out_app/RestApi.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DynamSoftCamera extends StatefulWidget {
@@ -48,9 +49,9 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
     DBRRuntimeSettings currentSettings =
         await _barcodeReader.getRuntimeSettings();
     currentSettings.barcodeFormatIds = EnumBarcodeFormat.BF_QR_CODE;
-    // currentSettings.minResultConfidence = 70;
+    currentSettings.minResultConfidence = 70;
     // currentSettings.minBarcodeTextLength = 50;
-    currentSettings.expectedBarcodeCount = 0;
+    currentSettings.expectedBarcodeCount = 1;
     await _barcodeReader.updateRuntimeSettings(currentSettings);
     _cameraEnhancer.setScanRegion(Region(
         regionTop: 0,
@@ -63,7 +64,7 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
 
     _barcodeReader.receiveResultStream().listen((List<BarcodeResult>? res) {
       if (mounted&&popUpOpened==false&&res!=null) {
-        showAddReceiptPopUp(res[0].barcodeText);
+        showLoadingMenu(res[0].barcodeText);
       }
     });
 
@@ -119,6 +120,38 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
     }
   }
 
+  void showLoadingMenu(String value){
+    popUpOpened=true;
+    var future=addReceipt(value);
+    future.then((status){
+      Navigator.pop(context);
+      if(status==409){
+        showDialog(context: context, builder: (context){
+          return AlertDialog(title: Text("Neko je vec skenirao ovaj racun"),);
+        }).whenComplete(() => popUpOpened=false);
+
+      }else if(status!=200){
+        showDialog(context: context, builder: (context){
+          return AlertDialog(title: Text("greska $status"),);
+        }).whenComplete(() => popUpOpened=false);
+      }else{
+        showAddReceiptPopUp(value);
+      }
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context){
+        return AlertDialog(
+          title: SizedBox(
+            width: 50,height: 50,
+            child: LoadingAnimationWidget.inkDrop(color: Colors.black, size: 50)
+          ),
+        );
+      }
+    );
+  }
+
   void showAddReceiptPopUp(String value){
     popUpOpened=true;
     var res=showModalBottomSheet<dynamic>(
@@ -141,52 +174,5 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
       loadReceipts();
     });
 
-  }
-  Widget closeButton(BuildContext context){
-    return Align(
-      alignment: Alignment.centerRight,
-      child: GestureDetector(
-        onTap: (){Navigator.pop(context);},
-        child: Container(
-          child:  const Padding(
-            padding: EdgeInsets.all(3.0),
-            child: Icon(Icons.close,size: 20,),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.black26
-          ),
-        ),
-      ),
-    );
-  }
-  Widget receiptTitle(String value){
-    return Align(
-      alignment: Alignment.center,
-      child: Text(value,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 30
-        ),
-      ),
-    );
-  }
-  Widget qrCode(String value){
-    return Padding(padding: const EdgeInsets.only(left: 60,right: 60),
-      child: QrImage(data: value,),
-    );
-  }
-  Widget nameEdit(){
-    return ExpandableSearch(radius: BorderRadius.circular(15),hint: "Ime racuna",);
-  }
-  Widget addReceiptButton(BuildContext context){
-    return ElevatedButton(
-      onPressed: (){Navigator.pop(context);},
-      child: const SizedBox(
-        width: 10000,
-        height: 40,
-        child: Center(child: Text("Dodaj")),
-      )
-    );
   }
 }

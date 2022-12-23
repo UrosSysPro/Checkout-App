@@ -1,3 +1,4 @@
+import 'package:check_out_app/RestApi.dart';
 import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +158,10 @@ class _EditReceiptPageState extends State<EditReceiptPage> {
   }
   Widget addReceiptButton(BuildContext context){
     return ElevatedButton(
-      onPressed: (){Navigator.pop(context);},
+      onPressed: (){
+        // updateReceipt(widget.model.id, )
+        Navigator.pop(context);  
+      },
       child: const SizedBox(
         width: 10000,
         height: 40,

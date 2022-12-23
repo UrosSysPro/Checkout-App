@@ -1,9 +1,8 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:check_out_app/RestApi.dart';
 import 'package:check_out_app/customWidgets/CameraReaderWidget.dart';
 import 'package:check_out_app/customWidgets/CollectionOverViewWidget.dart';
-import 'package:check_out_app/customWidgets/CuponPage.dart';
 import 'package:check_out_app/customWidgets/LoyalityCardsPage.dart';
-import 'package:check_out_app/pages/WelcomePage.dart';
+import 'package:check_out_app/pages/NoWiFiPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -56,7 +55,9 @@ class _MainPageState extends State<MainPage> {
         if(_selectedIndex==1)child=CameraReaderWidget();
         // if(_selectedIndex==2)child=CuponPage();
         if(_selectedIndex==2)child=LoyalityCardsPage();
-
+        if(!imaInterneta){
+          child=NoWiFiPage();
+        }
         return Stack(
           fit: StackFit.expand,
           children: [
@@ -112,10 +113,10 @@ class _MainPageState extends State<MainPage> {
           //     color: _selectedIndex==2?Colors.green:Colors.black54,
           //   )
           // ),
-          BottomNavigationBarItem(
-            label: "Kartice",
-            icon: Icon(Icons.card_giftcard,size: 40,)
-          ),
+          // BottomNavigationBarItem(
+          //   label: "Kartice",
+          //   icon: Icon(Icons.card_giftcard,size: 40,)
+          // ),
         ],
         onTap: _onTap,
       ),
