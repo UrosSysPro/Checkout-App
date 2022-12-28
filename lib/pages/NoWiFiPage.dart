@@ -1,4 +1,3 @@
-import 'package:check_out_app/RestApi.dart';
 import 'package:flutter/material.dart';
 
 class NoWiFiPage extends StatelessWidget {
@@ -9,7 +8,7 @@ class NoWiFiPage extends StatelessWidget {
     return Center(
       child: OutlinedButton(
         onPressed: (){
-          ping();
+          // ping();
         },
         child: Text("Refresh"),
       ),

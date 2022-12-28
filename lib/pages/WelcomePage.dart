@@ -1,13 +1,6 @@
-import 'dart:convert';
-
 import 'package:check_out_app/customWidgets/FourCornerRectangle.dart';
 import 'package:check_out_app/pages/MainPage.dart';
-import 'package:check_out_app/RestApi.dart';
-import 'package:check_out_app/main.dart';
-import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -30,7 +23,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
     // TODO: implement initState
     super.initState();
 
-    controller=new AnimationController(vsync: this,duration: Duration(milliseconds: 200));
+    controller=new AnimationController(vsync: this,duration: Duration(milliseconds: 1000));
     controller.addStatusListener((status) {
       if(status==AnimationStatus.completed){
         Navigator.pushReplacement(context, 
@@ -41,11 +34,6 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
       }
     });
     controller.forward();
-    loadUser().whenComplete(
-      () => loadReceipts().whenComplete(
-        () => controller.forward()
-      )
-    );
   }
 
 

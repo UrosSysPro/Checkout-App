@@ -1,7 +1,6 @@
 import 'package:check_out_app/customWidgets/AddReceiptPopUp.dart';
 import 'package:check_out_app/customWidgets/CameraReaderWidget.dart';
 import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
-import 'package:check_out_app/RestApi.dart';
 import 'package:dynamsoft_capture_vision_flutter/dynamsoft_capture_vision_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -122,22 +121,22 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
 
   void showLoadingMenu(String value){
     popUpOpened=true;
-    var future=addReceipt(value);
-    future.then((status){
-      Navigator.pop(context);
-      if(status==409){
-        showDialog(context: context, builder: (context){
-          return AlertDialog(title: Text("Neko je vec skenirao ovaj racun"),);
-        }).whenComplete(() => popUpOpened=false);
+    // var future=addReceipt(value);
+    // future.then((status){
+    //   Navigator.pop(context);
+    //   if(status==409){
+    //     showDialog(context: context, builder: (context){
+    //       return AlertDialog(title: Text("Neko je vec skenirao ovaj racun"),);
+    //     }).whenComplete(() => popUpOpened=false);
 
-      }else if(status!=200){
-        showDialog(context: context, builder: (context){
-          return AlertDialog(title: Text("greska $status"),);
-        }).whenComplete(() => popUpOpened=false);
-      }else{
-        showAddReceiptPopUp(value);
-      }
-    });
+    //   }else if(status!=200){
+    //     showDialog(context: context, builder: (context){
+    //       return AlertDialog(title: Text("greska $status"),);
+    //     }).whenComplete(() => popUpOpened=false);
+    //   }else{
+    //     showAddReceiptPopUp(value);
+    //   }
+    // });
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -171,7 +170,7 @@ class DynamSoftCameraState extends State<DynamSoftCamera> with WidgetsBindingObs
     );
     res.whenComplete(() {
       popUpOpened=false;
-      loadReceipts();
+      // loadReceipts();
     });
 
   }
