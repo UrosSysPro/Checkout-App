@@ -1,8 +1,11 @@
+import 'package:check_out_app/AppState.dart';
 import 'package:check_out_app/customWidgets/ExpandableSearch.dart';
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:check_out_app/views/ReceiptView.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 class CollectionOverViewWidget extends StatefulWidget {
   const CollectionOverViewWidget({ Key? key }) : super(key: key);
@@ -63,11 +66,13 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   
   @override
   Widget build(BuildContext context) {
+    // if()
+    var appState=context.watch<AppState>();
     return Column(
       children: [
-        Expanded(child: receiptsList(),flex: 1,),
-        info(),
-        search()
+        Expanded(child: receiptsList(appState),flex: 1,),
+        info(appState),
+        search(appState)
       ],
     );
   }
@@ -75,8 +80,8 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
   
 
   
-  Widget receiptsList(){
-    if(receipts.isEmpty){
+  Widget receiptsList(AppState appState){
+    if(appState.receipts.isEmpty){
       return const Center(
         child: Text("Nema sacuvanih racuna"),
       );
@@ -87,7 +92,7 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     return PageView.builder(
       scrollDirection: Axis.horizontal,
       physics: BouncingScrollPhysics(),
-      itemCount: receipts.length,
+      itemCount: appState.receipts.length,
       controller: scrollController,
       clipBehavior: Clip.none,
       onPageChanged: (index){
@@ -102,20 +107,20 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
         scale/=1100;
         scale=1.0-scale;
         scale=max(0, scale*0.9);
-        return ReceiptView(index,receipts[index],translate,scale,scrollController,selectedReceipt);
+        return ReceiptView(index,appState.receipts[index],translate,scale,scrollController,selectedReceipt);
       }
     );
   } 
 
-  Widget info(){
-    if(receipts.isEmpty){
+  Widget info(AppState appState){
+    if(appState.receipts.isEmpty){
       return Container(height: 0,);
     }
-    String prodavnica=receipts[selectedReceipt].placeOfPurchase.business.name;
-    String datum=receipts[selectedReceipt].scanned;
-    double total=receipts[selectedReceipt].totalPrice;
+    String prodavnica=appState.receipts[selectedReceipt].placeOfPurchase.business.name;
+    String datum=appState.receipts[selectedReceipt].scanned;
+    double total=appState.receipts[selectedReceipt].totalPrice;
     String valuta="RSD";
-    String imeRacuna=receipts[selectedReceipt].name;
+    String imeRacuna=appState.receipts[selectedReceipt].name;
 
     // if(prodavnica.length>10){
     //   prodavnica=prodavnica.substring(0,10)+"...";
@@ -172,8 +177,8 @@ class _CollectionOverViewWidgetState extends State<CollectionOverViewWidget> {
     );
   }
   
-  Widget search(){
-    if(receipts.isEmpty){
+  Widget search(AppState appState){
+    if(appState.receipts.isEmpty){
       return Container(height: 0,);
     }
     return ExpandableSearch(

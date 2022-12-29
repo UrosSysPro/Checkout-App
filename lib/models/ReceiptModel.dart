@@ -114,5 +114,3 @@ class ReceiptModel{
     return text;
   }
 }
-
-List<ReceiptModel> receipts=[];

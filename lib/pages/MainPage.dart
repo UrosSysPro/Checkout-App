@@ -57,9 +57,15 @@ class _MainPageState extends State<MainPage> {
         ),
         
         body: Builder(builder: (context){
+          //ako nema interneta
+          var appState=context.watch<AppState>();
+          if((appState.user==null&&!appState.loadingUser)||!appState.imaInterneta)
+            return NoWiFiPage();
+          
+          //ako ima interneta
           Widget child=Container(color: Colors.red,);
           if(_selectedIndex==0)child=const CollectionOverViewWidget();
-          // if(_selectedIndex==1)child=const CameraReaderWidget();
+          if(_selectedIndex==1)child=const CameraReaderWidget();
           if(_selectedIndex==2)child=const LoyalityCardsPage();
           
           return Stack(

@@ -1,3 +1,4 @@
+
 import 'package:check_out_app/models/ReceiptModel.dart';
 import 'package:check_out_app/models/UserModel.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +12,7 @@ class AppState with ChangeNotifier{
   bool loadingUser=false;
   bool loadingReceipts=false;
   bool waitingForAnyRequest=false;
+  bool imaInterneta=true;
   FlutterSecureStorage? storage;
   static const url="checkoutbackend.azurewebsites.net";
   static const api="api/v1";
@@ -19,11 +21,12 @@ class AppState with ChangeNotifier{
     loadingReceipts=false;
     loadingUser=false;
     waitingForAnyRequest=false;
+    loadUser().then((value) => loadReceipts());
   }
 
   Future<void> loadUser() async{
     if(storage==null){
-      storage=FlutterSecureStorage(
+      storage=const FlutterSecureStorage(
         aOptions: AndroidOptions(encryptedSharedPreferences: true)
       );
     }
@@ -32,13 +35,17 @@ class AppState with ChangeNotifier{
     String? userString=await storage!.read(key: "user");
     if(userString==null){
       var requestUrl=Uri.https(url,"$api/users");
-      var response=await http.post(requestUrl);
+      var response=await httpPost(requestUrl);
+
+      imaInterneta=response.statusCode==200;
       if(response.statusCode==200){
         userString=response.body;
         await storage?.write(key: "user", value: userString);
+        print(userString);
       }
     }else{
       user=UserModel.fromJson(jsonDecode(userString));
+      print(userString);
     }
     loadingUser=false;
     notifyListeners();
@@ -64,9 +71,11 @@ class AppState with ChangeNotifier{
       "userId":user!.id
     };
     var resquestUrl=Uri.https(url,"$api/receipts",params);
-    var response=await http.get(resquestUrl,headers:headers,);
+    var response=await httpGet(resquestUrl,headers:headers,);
     
+    imaInterneta=response.statusCode==200;
     if(response.statusCode==200){
+      receipts=[];
       print(response.body);
       List jsonList=jsonDecode(response.body);
 
@@ -96,8 +105,9 @@ class AppState with ChangeNotifier{
       "userId":user!.id
     };
     print(headers["userId"]);
-    var response=await http.post(requestUrl,headers: headers);
-    // imaInterneta=response.statusCode==200;
+    var response=await httpPost(requestUrl,headers: headers);
+    
+    imaInterneta=response.statusCode==200||response.statusCode==409||response.statusCode==500;
     print(response.statusCode);
     waitingForAnyRequest=false;
     notifyListeners();
@@ -114,8 +124,8 @@ class AppState with ChangeNotifier{
       "name": name,
       "validUntil": "2023-12-25"
     };
-    var response=await http.put(requestUrl,body: requestBody);
-    // imaInterneta=response.statusCode==200;
+    var response=await httpPut(requestUrl,body: requestBody);
+    imaInterneta=response.statusCode==200;
     waitingForAnyRequest=false;
     notifyListeners();
     return response.statusCode;
@@ -123,8 +133,56 @@ class AppState with ChangeNotifier{
 
   Future<int> ping()async{
 
-    var ping=await http.get(Uri.https(url,"/$api/users"));
-    // imaInterneta=ping.statusCode==200;
+    var ping=await httpGet(Uri.https(url,"/$api/users"));
+    imaInterneta=ping.statusCode==200;
     return ping.statusCode;
   }
+}
+
+
+Future<http.Response> httpGet(Uri url,{Object? body,Map<String,String>?headers})async{
+  
+  try{
+    return await http.get(url,headers: headers).timeout(
+      Duration(seconds: 3),
+      onTimeout: ()=>fakeResponse()
+    );
+  }catch(e){
+    return fakeResponse();
+  }
+  
+}
+
+Future<http.Response> httpPost(Uri url,{Object? body,Map<String,String>?headers})async{
+  try{
+    return await http.post(
+      url,
+      headers: headers,
+      body: body
+    ).timeout(
+      Duration(seconds: 3),
+      onTimeout: ()=>fakeResponse()
+    );
+  }catch(e){
+    return fakeResponse();
+  }
+}
+
+Future<http.Response> httpPut(Uri url,{Object? body,Map<String,String>?headers})async{
+  try{
+    return await http.post(
+      url,
+      headers: headers,
+      body: body
+    ).timeout(
+      Duration(seconds: 3),
+      onTimeout: ()=>fakeResponse()
+    );
+  }catch(e){
+    return fakeResponse();
+  }
+}
+
+http.Response fakeResponse(){
+  return http.Response("timeout",404);
 }
